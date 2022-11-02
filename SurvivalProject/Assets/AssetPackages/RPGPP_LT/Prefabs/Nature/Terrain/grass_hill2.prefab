@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33012352679397112}
   - component: {fileID: 23097766817657972}
   m_Layer: 0
-  m_Name: rpgpp_lt_hill_small_02
+  m_Name: grass_hill2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
