@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
 
     public float groundDrag;
 
@@ -14,9 +16,6 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
-
-    [HideInInspector] public float walkSpeed;
-    [HideInInspector] public float sprintSpeed;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -34,10 +33,12 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    Animator mAnimator;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        mAnimator = GetComponentInChildren<Animator>();
         rb.freezeRotation = true;
 
         readyToJump = true;
@@ -46,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 1.5f + 0.3f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -72,10 +73,16 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-
             Jump();
-
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+        else if(Input.GetKey(KeyCode.LeftShift) && grounded)
+        {
+            Run();
+        }
+        else if(moveDirection == Vector3.zero)
+        {
+            Idle();
         }
     }
 
@@ -85,12 +92,16 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // on ground
-        if(grounded)
+        if(grounded) 
+        {
+            Walk();
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
+        }
         // in air
         else if(!grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
     }
 
     private void SpeedControl()
@@ -105,13 +116,33 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Idle()
+    {
+        moveSpeed = 0;
+        mAnimator.SetFloat("Speed", 0, 0.15f, Time.deltaTime);
+    }
+
+    private void Walk()
+    {
+        moveSpeed = walkSpeed;
+        mAnimator.SetFloat("Speed", 0.5f, 0.15f, Time.deltaTime);
+    }
+
+    private void Run()
+    {
+        moveSpeed = sprintSpeed;
+        mAnimator.SetFloat("Speed", 1, 0.15f, Time.deltaTime);
+    }
+
     private void Jump()
     {
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        mAnimator.SetTrigger("Jump");
     }
+
     private void ResetJump()
     {
         readyToJump = true;
