@@ -918,7 +918,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001338894}
-  m_LocalRotation: {x: 0.09520768, y: 0.000000004282055, z: -4.0954498e-10, w: 0.9954575}
+  m_LocalRotation: {x: 0.09520768, y: -0.000000004282055, z: 4.0954498e-10, w: 0.9954575}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1050,7 +1050,7 @@ GameObject:
   - component: {fileID: 1237103061}
   - component: {fileID: 1237103063}
   m_Layer: 5
-  m_Name: HpBar
+  m_Name: HpBarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,7 +1127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15246c0bf4fb2874199c862d04ce519f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HpBar: {fileID: 809291597}
+  HpBarImage: {fileID: 809291597}
   max: 100
   current: 100
 --- !u!1 &1244698695
@@ -1427,7 +1427,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539549296}
-  m_LocalRotation: {x: 0.048836377, y: 0.000000017319596, z: -8.4683666e-10, w: 0.99880683}
+  m_LocalRotation: {x: 0.048836377, y: -0.000000017319593, z: 8.468365e-10, w: 0.99880683}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1691,9 +1691,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15246c0bf4fb2874199c862d04ce519f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HpBar: {fileID: 0}
-  max: 0
-  current: 0
+  HpBarImage: {fileID: 809291597}
+  max: 100
+  current: 100
 --- !u!1 &2112462827
 GameObject:
   m_ObjectHideFlags: 3
