@@ -106,4 +106,5 @@ public class MovementTest : MonoBehaviour
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         mAnimator.SetTrigger("Jump");
     }
+
 }
