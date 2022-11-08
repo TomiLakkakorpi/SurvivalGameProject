@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 809291598}
   - component: {fileID: 809291597}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: HpFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.473
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -938,7 +938,7 @@ GameObject:
   - component: {fileID: 911023225}
   - component: {fileID: 911023224}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BottleFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -989,7 +989,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.55
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1071,7 +1071,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001338894}
-  m_LocalRotation: {x: 0.09520768, y: -0.000000004282055, z: 4.0954498e-10, w: 0.9954575}
+  m_LocalRotation: {x: 0.09520768, y: 0.000000004282055, z: -4.0954498e-10, w: 0.9954575}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1201,7 +1201,6 @@ GameObject:
   - component: {fileID: 1237103060}
   - component: {fileID: 1237103062}
   - component: {fileID: 1237103061}
-  - component: {fileID: 1237103063}
   m_Layer: 5
   m_Name: HpBarImage
   m_TagString: Untagged
@@ -1268,21 +1267,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237103059}
   m_CullTransparentMesh: 1
---- !u!114 &1237103063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1237103059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15246c0bf4fb2874199c862d04ce519f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HpBarImage: {fileID: 809291597}
-  max: 100
-  current: 50
 --- !u!1 &1244698695
 GameObject:
   m_ObjectHideFlags: 3
@@ -1582,7 +1566,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539549296}
-  m_LocalRotation: {x: 0.048836377, y: 0.000000017319596, z: -8.4683666e-10, w: 0.99880683}
+  m_LocalRotation: {x: 0.048836377, y: -0.000000017319593, z: 8.468365e-10, w: 0.99880683}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1847,8 +1831,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HpBarImage: {fileID: 809291597}
-  max: 100
-  current: 100
+  HealtMax: 100
+  HealtCurrent: 100
+  HungerBarImage: {fileID: 2133704586}
+  HungerMax: 100
+  HungerCurrent: 100
+  ThirstyBarImage: {fileID: 911023224}
+  ThirstyMax: 70
+  ThirstyCurrent: 70
 --- !u!1 &2112462827
 GameObject:
   m_ObjectHideFlags: 3
@@ -1988,7 +1978,7 @@ GameObject:
   - component: {fileID: 2115200037}
   - component: {fileID: 2115200036}
   m_Layer: 5
-  m_Name: ThristyImage
+  m_Name: ThirstyBarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2065,7 +2055,7 @@ GameObject:
   - component: {fileID: 2133704587}
   - component: {fileID: 2133704586}
   m_Layer: 5
-  m_Name: Image
+  m_Name: FoodFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2116,7 +2106,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.378
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
