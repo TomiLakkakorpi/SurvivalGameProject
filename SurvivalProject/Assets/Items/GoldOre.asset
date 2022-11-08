@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GoldOre
   m_EditorClassIdentifier: 
   id: 3
-  itemName: GoldOre
+  itemName: Gold Ore
   value: 0
   icon: {fileID: 21300000, guid: 77ad4fbce79de59428c418b4c56196a6, type: 3}
