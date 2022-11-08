@@ -8,16 +8,19 @@ public class MovementTest : MonoBehaviour
     public float moveSpeed;
     public float walkSpeed;
     public float runSpeed;
-
     private Vector3 moveDirection;
     private Vector3 velocity;
-
     public bool isGrounded;
     public float groundCheckDistance;
     public LayerMask groundMask;
     public float gravity;
     public Transform orientation;
     public float jumpHeight;
+    private float punchCooldown = 0.8f;
+    private float nextPunch;
+    private float jumpCooldown = 1.5f;
+    private float nextJump;
+    private float fallTime = 0;
 
     // REFERENCES
     private CharacterController controller;
@@ -43,40 +46,59 @@ public class MovementTest : MonoBehaviour
             velocity.y = -2f;
         }
 
+        // Get inputs to move (wsad or arrow keys by default)
         float moveZ = Input.GetAxis("Vertical");
         float moveX = Input.GetAxis("Horizontal");
 
         moveDirection = new Vector3(moveX, 0, moveZ);
-        //moveDirection = transform.TransformDirection(moveDirection);
+        // Make the player move where character is looking
         moveDirection = orientation.forward * moveZ + orientation.right * moveX;
-
-       
-        if(moveDirection == Vector3.zero)
-        {
-            Idle();
-        }
-        else if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
-        {
-            Walk();
-        }
-        else if(moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
-        {
-            Run();
-        }
-
-        moveDirection *= moveSpeed;
 
         if(isGrounded)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            mAnimator.SetBool("Falling", false);
+            //Do damage to player according to fallTime
+            fallTime = 0;
+
+            // Idle, Walking and running
+            if(moveDirection == Vector3.zero)
             {
+                Idle();
+            }
+            else if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
+            {
+                Walk();
+            }
+            else if(moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+            {
+                Run();
+            }
+            // Jumping
+            if(Input.GetKeyDown(KeyCode.Space) && Time.time > nextJump)
+            {
+                nextJump = Time.time + jumpCooldown;
                 Jump();
+            }
+            // Punch
+            if(Input.GetMouseButtonDown(0) && Time.time > nextPunch)
+            {
+                nextPunch = Time.time + punchCooldown;
+                Hit();
+            }
+            // Roll
+            if(Input.GetKeyDown(KeyCode.V))
+            {
+                mAnimator.SetTrigger("Roll");
+                moveDirection = orientation.forward * 300 + orientation.right * 300;
+                controller.Move(moveDirection.normalized * Time.deltaTime);
             }
         }
         else if(!isGrounded)
         {
-            //Falling animation after jump animation is ended
+            Fall();
         }
+        
+        moveDirection *= moveSpeed;
 
         controller.Move(moveDirection * Time.deltaTime);
 
@@ -107,4 +129,15 @@ public class MovementTest : MonoBehaviour
         mAnimator.SetTrigger("Jump");
     }
 
+    private void Hit()
+    {
+        // Deal damage here
+        mAnimator.SetTrigger("Hit");
+    }
+
+    private void Fall()
+    {
+        mAnimator.SetBool("Falling", true);
+        fallTime += Time.deltaTime;
+    }
 }
