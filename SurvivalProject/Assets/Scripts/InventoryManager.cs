@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
 
     public Toggle EnableRemove;
 
-    public InventoryItemController[] InventoryItems;
+    private InventoryItemController[] InventoryItems;
 
     private void Awake()
     {

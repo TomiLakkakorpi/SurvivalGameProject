@@ -20,11 +20,9 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //This Method keeps track what is looted and updates inventory every frame to see items
-        InventoryManager.Instance.ListItems();
-
         if (Input.GetKeyDown(KeyCode.B)){
-             
+            //This Method keeps track what is looted and updates inventory every 
+            InventoryManager.Instance.ListItems();
             isOpen = !isOpen;
             if (isOpen){
                 inventory.SetActive(true);
