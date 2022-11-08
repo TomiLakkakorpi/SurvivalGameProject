@@ -89,8 +89,6 @@ public class MovementTest : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.V))
             {
                 mAnimator.SetTrigger("Roll");
-                moveDirection = orientation.forward * 300 + orientation.right * 300;
-                controller.Move(moveDirection.normalized * Time.deltaTime);
             }
         }
         else if(!isGrounded)
