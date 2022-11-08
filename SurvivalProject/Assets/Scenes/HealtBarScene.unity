@@ -1071,7 +1071,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001338894}
-  m_LocalRotation: {x: 0.09520768, y: -0.000000004282055, z: 4.0954498e-10, w: 0.9954575}
+  m_LocalRotation: {x: 0.09520768, y: 0.000000004282055, z: -4.0954498e-10, w: 0.9954575}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1831,14 +1831,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HpBarImage: {fileID: 809291597}
-  HealtMax: 100
-  HealtCurrent: 100
+  HealthMax: 100
+  HealthCurrent: 100
   HungerBarImage: {fileID: 2133704586}
   HungerMax: 100
   HungerCurrent: 100
+  StarvationMultiplier: 1
   ThirstyBarImage: {fileID: 911023224}
-  ThirstyMax: 10
-  ThirstyCurrent: 10
+  ThirstyMax: 100
+  ThirstyCurrent: 100
+  ThirstyMultiplier: 2
 --- !u!1 &2112462827
 GameObject:
   m_ObjectHideFlags: 3

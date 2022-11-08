@@ -6,37 +6,33 @@ using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
-    
-    [Header("Player Healt")]
+    private float Multiplier = 0.0005f;
+    [Header("Player health")]
     public Image HpBarImage;
-    public float HealtMax;
-    public float HealtCurrent;
+    public float HealthMax;
+    public float HealthCurrent;
     
     [Header("Player Hunger")]
     public Image HungerBarImage;
     public float HungerMax;
     public float HungerCurrent;
+    public float StarvationMultiplier;
 
     [Header("Player Thirsty")]
     public Image ThirstyBarImage;
     public float ThirstyMax;
     public float ThirstyCurrent;
+    public float ThirstyMultiplier;
 
-    private float multiplier = 0.0005f;
-
-    void Start()
-    {
-        
-    }
    
     // Update is called once per frame
     void Update()
     {
-        //reduce hunger by time
-        HungerCurrent = HungerMax - Time.time;
+        //reduce hunger by time, with multiplyer you
+        HungerCurrent = HungerMax - Time.time * StarvationMultiplier;
 
         //reduce thirsty by time
-        ThirstyCurrent = ThirstyMax - Time.time;
+        ThirstyCurrent = ThirstyMax - Time.time * ThirstyMultiplier;
         
         GetCurrentFill();
 
@@ -48,15 +44,15 @@ public class PlayerStatus : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        HealtCurrent -= damage;
+        HealthCurrent -= damage;
     }
 
     
     public void GetCurrentFill()
     {
         //Fill amount of imagebars
-        float HealtFill = HealtCurrent / HealtMax;
-        HpBarImage.fillAmount = HealtFill;
+        float HealthFill = HealthCurrent / HealthMax;
+        HpBarImage.fillAmount = HealthFill;
 
         float HungerFill = HungerCurrent / HungerMax;
         HungerBarImage.fillAmount = HungerFill;
@@ -64,15 +60,15 @@ public class PlayerStatus : MonoBehaviour
         float ThirstyFill = ThirstyCurrent / ThirstyMax;
         ThirstyBarImage.fillAmount = ThirstyFill;
         
-        //if statements when hungry and thirsty then reduce healt
+        //if statements when hungry and thirsty then reduce health
         if(HungerFill < 0)
         {
-            HealtCurrent -= multiplier;
+            HealthCurrent -= Multiplier;
         }
         
         if(ThirstyFill < 0)
         {
-            HealtCurrent -= multiplier;
+            HealthCurrent -= Multiplier;
         }
     }    
 }
