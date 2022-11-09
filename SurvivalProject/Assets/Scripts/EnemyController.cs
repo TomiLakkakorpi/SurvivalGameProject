@@ -19,7 +19,6 @@ public class EnemyController : MonoBehaviour
     public int edgeIterations = 4;
     public float edgeDistance = 0.5f;
  
- 
     public Transform[] waypoints;
     int m_CurrentWaypointIndex;
  
