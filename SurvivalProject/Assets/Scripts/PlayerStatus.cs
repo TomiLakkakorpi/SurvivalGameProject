@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 
 public class PlayerStatus : MonoBehaviour
 {
+    public static event Action OnPlayerDeath;
     private float Multiplier = 0.0005f;
     [Header("Player health")]
     public Image HpBarImage;
@@ -68,7 +70,16 @@ public class PlayerStatus : MonoBehaviour
         
         if(ThirstyFill < 0)
         {
-            HealthCurrent -= Multiplier;
+            HealthCurrent -= Multiplier; 
+        } 
+
+        if(HealthFill < 0)
+        {
+            Debug.Log("Olet kuollut");
+            OnPlayerDeath?.Invoke();
+            Debug.Log("Stop");
+            enabled = false;
+            Debug.Log("Stop2");
         }
     }    
 }
