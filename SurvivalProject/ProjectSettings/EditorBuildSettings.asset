@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SurvivalProjectMap.unity
     guid: e95c49b7046326a4eadae2e7a155104e
+  - enabled: 1
+    path: Assets/Scenes/HealtBarScene.unity
+    guid: 6f89606eaea520649a0166afea12ad0b
   m_configObjects: {}

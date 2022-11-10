@@ -7,34 +7,47 @@ using System;
 
 public class PlayerStatus : MonoBehaviour
 {
+    private float HealthFill;
+    private float HungerFill;
+    private float ThirstyFill;
     public static event Action OnPlayerDeath;
     private float Multiplier = 0.0005f;
+
+
     [Header("Player health")]
     public Image HpBarImage;
-    public float HealthMax;
-    public float HealthCurrent;
+    private float HealthMax = 100;
+    private float HealthCurrent;
     
     [Header("Player Hunger")]
     public Image HungerBarImage;
-    public float HungerMax;
-    public float HungerCurrent;
+    private float HungerMax = 100;
+    private float HungerCurrent;
     public float StarvationMultiplier;
 
     [Header("Player Thirsty")]
     public Image ThirstyBarImage;
-    public float ThirstyMax;
-    public float ThirstyCurrent;
+    private float ThirstyMax = 100;
+    private float ThirstyCurrent;
     public float ThirstyMultiplier;
 
    
+    void Start()
+    {
+        HealthCurrent = HealthMax;
+        HungerCurrent = HungerMax;
+        ThirstyCurrent = ThirstyMax;
+       
+        Debug.Log("STARTISSA");
+    }
     // Update is called once per frame
     void Update()
     {
-        //reduce hunger by time, with multiplyer you
-        HungerCurrent = HungerMax - Time.time * StarvationMultiplier;
+        //reduce hunger by time, with multiplyer
+        HungerCurrent = HungerMax - Time.timeSinceLevelLoad * StarvationMultiplier;
 
         //reduce thirsty by time
-        ThirstyCurrent = ThirstyMax - Time.time * ThirstyMultiplier;
+        ThirstyCurrent = ThirstyMax - Time.timeSinceLevelLoad * ThirstyMultiplier;
         
         GetCurrentFill();
 
@@ -53,13 +66,13 @@ public class PlayerStatus : MonoBehaviour
     public void GetCurrentFill()
     {
         //Fill amount of imagebars
-        float HealthFill = HealthCurrent / HealthMax;
+        HealthFill = HealthCurrent / HealthMax;
         HpBarImage.fillAmount = HealthFill;
 
-        float HungerFill = HungerCurrent / HungerMax;
+        HungerFill = HungerCurrent / HungerMax;
         HungerBarImage.fillAmount = HungerFill;
 
-        float ThirstyFill = ThirstyCurrent / ThirstyMax;
+        ThirstyFill = ThirstyCurrent / ThirstyMax;
         ThirstyBarImage.fillAmount = ThirstyFill;
         
         //if statements when hungry and thirsty then reduce health
@@ -75,11 +88,10 @@ public class PlayerStatus : MonoBehaviour
 
         if(HealthFill < 0)
         {
-            Debug.Log("Olet kuollut");
+            //Debug.Log("Olet kuollut");
             OnPlayerDeath?.Invoke();
-            Debug.Log("Stop");
+            //This stops whole script
             enabled = false;
-            Debug.Log("Stop2");
         }
     }    
 }
