@@ -7,6 +7,8 @@ using System;
 
 public class PlayerStatus : MonoBehaviour
 {
+    public static PlayerStatus Instance;
+
     private float HealthFill;
     private float HungerFill;
     private float ThirstyFill;
@@ -31,6 +33,10 @@ public class PlayerStatus : MonoBehaviour
     private float ThirstyCurrent;
     public float ThirstyMultiplier;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
    
     void Start()
     {
@@ -60,6 +66,21 @@ public class PlayerStatus : MonoBehaviour
     public void TakeDamage(float damage)
     {
         HealthCurrent -= damage;
+    }
+
+    public void IncreaseHealth(int value)
+    {
+        HealthCurrent += value;
+    }
+
+     public void IncreaseFood(int value)
+    {
+        HungerCurrent += value;
+    }
+
+     public void IncreaseDrink(int value)
+    {
+        ThirstyCurrent += value;
     }
 
     

@@ -16,3 +16,4 @@ MonoBehaviour:
   itemName: Health Pot
   value: 10
   icon: {fileID: 21300000, guid: b640302026ef5fc49a3bc08daa552609, type: 3}
+  itemType: 1

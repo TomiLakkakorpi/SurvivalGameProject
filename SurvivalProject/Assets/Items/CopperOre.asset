@@ -16,3 +16,4 @@ MonoBehaviour:
   itemName: Copper Ore
   value: 0
   icon: {fileID: 21300000, guid: da234874a7e8a5c4295a0d79b17c9de3, type: 3}
+  item: 0
