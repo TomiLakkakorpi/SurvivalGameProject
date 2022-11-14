@@ -58,6 +58,9 @@ public class MovementTest : MonoBehaviour
         {
             mAnimator.SetBool("Falling", false);
             //Do damage to player according to fallTime
+            if(fallTime > 2) {
+                PlayerStatus.Instance.TakeDamage(fallTime * 10);
+            }
             fallTime = 0;
 
             // Idle, Walking and running
