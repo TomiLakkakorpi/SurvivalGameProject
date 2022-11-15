@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 464830}
   - component: {fileID: 3397690}
   - component: {fileID: 2373498}
-  - component: {fileID: 5210525994797347224}
+  - component: {fileID: 8716612111719564836}
   m_Layer: 0
   m_Name: Potion_Health
   m_TagString: Untagged
@@ -84,16 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5210525994797347224
-MonoBehaviour:
+--- !u!64 &8716612111719564836
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173500}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1023fe016bbc4e4eab45b96aff97ca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: e5f89191d2555b74ea6f4d681a7516e7, type: 2}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 2a7aeccaf51cb44258e96e4127ac8d7e, type: 3}

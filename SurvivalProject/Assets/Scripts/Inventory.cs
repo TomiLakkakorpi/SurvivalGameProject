@@ -1,48 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject inventory;
-    public Button CloseButton;
-    private bool isOpen = false;
-    //public static InventoryManager inventoryManager;
-
-    void Start()
+    private const int SLOTS = 10;
+    private List<IInventoryItem> mItems = new List<IInventoryItem>();
+    public event EventHandler<InventoryEventArgs> ItemAdded;
+    public void AddItem(IInventoryItem item)
     {
-        inventory.SetActive(false);
-       
-        CloseButton.onClick.AddListener(TaskOnClick);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B)){
-            //This Method keeps track what is looted and updates inventory every 
-            InventoryManager.Instance.ListItems();
-            isOpen = !isOpen;
-            if (isOpen){
-                inventory.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-
-            else {
-             inventory.SetActive(false);
-             Cursor.lockState = CursorLockMode.Locked;
-             Cursor.visible = true;
+        if(mItems.Count < SLOTS)
+        {
+            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
+            if(collider.enabled)
+            {
+                collider.enabled = false;
+                mItems.Add(item);
+                item.OnPickup();
+                if(ItemAdded != null)
+                {
+                    ItemAdded(this, new InventoryEventArgs(item));
+                }
             }
         }
-    }
-
-    //When pressing Closebutton from inventory itself
-    void TaskOnClick(){
-        isOpen = !isOpen;
-        inventory.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 }

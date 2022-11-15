@@ -7,11 +7,15 @@ using System;
 
 public class PlayerStatus : MonoBehaviour
 {
+    public static PlayerStatus Instance;
+    public Inventory inventory;
+    public HUD Hud;
+
     private float HealthFill;
     private float HungerFill;
     private float ThirstyFill;
     public static event Action OnPlayerDeath;
-    private float Multiplier = 0.0005f;
+    public float HealthMultiplier = 0.0005f;
 
 
     [Header("Player health")]
@@ -31,6 +35,10 @@ public class PlayerStatus : MonoBehaviour
     private float ThirstyCurrent;
     public float ThirstyMultiplier;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
    
     void Start()
     {
@@ -38,7 +46,6 @@ public class PlayerStatus : MonoBehaviour
         HungerCurrent = HungerMax;
         ThirstyCurrent = ThirstyMax;
        
-        Debug.Log("STARTISSA");
     }
     // Update is called once per frame
     void Update()
@@ -51,15 +58,38 @@ public class PlayerStatus : MonoBehaviour
         
         GetCurrentFill();
 
+        // DEBUGGING METHOD DELETE AFTER
         if(Input.GetKeyDown(KeyCode.E))
         {
             TakeDamage(20);
+        }
+        // Pickup item when near it by pressing F
+        if(Input.GetKeyDown(KeyCode.F) && mItemToPickUp != null)
+        {
+            inventory.AddItem(mItemToPickUp);
+            mItemToPickUp.OnPickup();
+            Hud.CloseMessagePanel();
         }
     }
 
     public void TakeDamage(float damage)
     {
         HealthCurrent -= damage;
+    }
+
+    public void IncreaseHealth(int value)
+    {
+        HealthCurrent += value;
+    }
+
+     public void IncreaseFood(int value)
+    {
+        HungerCurrent += value;
+    }
+
+     public void IncreaseDrink(int value)
+    {
+        ThirstyCurrent += value;
     }
 
     
@@ -78,20 +108,41 @@ public class PlayerStatus : MonoBehaviour
         //if statements when hungry and thirsty then reduce health
         if(HungerFill < 0)
         {
-            HealthCurrent -= Multiplier;
+            HealthCurrent -= HealthMultiplier;
         }
         
         if(ThirstyFill < 0)
         {
-            HealthCurrent -= Multiplier; 
+            HealthCurrent -= HealthMultiplier; 
         } 
 
         if(HealthFill < 0)
         {
-            //Debug.Log("Olet kuollut");
             OnPlayerDeath?.Invoke();
             //This stops whole script
             enabled = false;
         }
-    }    
+    }
+
+    private IInventoryItem mItemToPickUp = null;
+    private void OnTriggerEnter(Collider other)
+    {
+        IInventoryItem item = other.GetComponent<IInventoryItem>();
+        if(item != null)
+        {
+            mItemToPickUp = item;
+            Hud.OpenMessagePanel("");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        IInventoryItem item = other.GetComponent<IInventoryItem>();
+        if(item != null)
+        {
+            mItemToPickUp = null;
+            Hud.CloseMessagePanel();
+        }
+    }
+
 }
