@@ -9,6 +9,8 @@ public class EnemyAI : MonoBehaviour
 
     public LayerMask whatIsPlayer, whatIsGround;
 
+    public PlayerStatus playerStatus;
+
     //Patrolling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -83,6 +85,8 @@ public class EnemyAI : MonoBehaviour
         {
             //Attack code here
             //Make enemy swing at you
+            playerStatus.TakeDamage(10);
+
             
 
             alreadyAttacked = true;
