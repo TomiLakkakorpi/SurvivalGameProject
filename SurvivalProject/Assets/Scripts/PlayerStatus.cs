@@ -17,6 +17,8 @@ public class PlayerStatus : MonoBehaviour
     public static event Action OnPlayerDeath;
     public float HealthMultiplier = 0.0005f;
 
+    //References
+    private Animator mAnimator;
 
     [Header("Player health")]
     public Image HpBarImage;
@@ -42,6 +44,7 @@ public class PlayerStatus : MonoBehaviour
    
     void Start()
     {
+        mAnimator = GetComponentInChildren<Animator>();
         HealthCurrent = HealthMax;
         HungerCurrent = HungerMax;
         ThirstyCurrent = ThirstyMax;
@@ -75,6 +78,7 @@ public class PlayerStatus : MonoBehaviour
     public void TakeDamage(float damage)
     {
         HealthCurrent -= damage;
+        mAnimator.SetTrigger("GetHit");
     }
 
     public void IncreaseHealth(int value)

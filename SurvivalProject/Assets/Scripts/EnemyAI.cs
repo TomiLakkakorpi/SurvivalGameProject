@@ -3,6 +3,9 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    //Gameobject for recognizing enemies tag
+    public GameObject enemy;
+
     public NavMeshAgent agent;
 
     public Transform player;
@@ -11,10 +14,17 @@ public class EnemyAI : MonoBehaviour
 
     public PlayerStatus playerStatus;
 
+    public static EnemyAI Instance;
+
+    public bool patrolling = false;
+    public bool chasing = false;
+    public bool attacking = false;
+
     //Patrolling
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
+    
 
     //Attacking
     public float timeBetweenAttacks;
@@ -24,8 +34,16 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    
+
+    private void Start()
+    {
+        
+    }
+
     private void Awake()
     {
+        Instance = this;
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         
@@ -33,6 +51,10 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("AlreadyAttacked: " + alreadyAttacked);
+        //Debug.Log("Patrolling: " + patrolling);
+        Debug.Log("Chasing: " + chasing);
+        Debug.Log("Attacking: " + attacking);
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -44,6 +66,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Patrolling()
     {
+        attacking = false;
+        patrolling = true;
         //If walkpoint is not set look for new walkpoint
         if (!walkPointSet) SearchWalkPoint();
 
@@ -71,11 +95,15 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
+        patrolling = false;
+        chasing = true;
         agent.SetDestination(player.position);
     }
 
     private void AttackPlayer()
     {
+        chasing = false;
+        attacking = true;
         //Make sure enemy doesn't move when reaching attack distance
         agent.SetDestination(transform.position);
 
@@ -84,8 +112,13 @@ public class EnemyAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             //Attack code here
-            //Make enemy swing at you
-            playerStatus.TakeDamage(10);
+            //Make enemy swing at you based on enemy tag
+            if(enemy.tag == "Centaur"){
+                Centaur.Instance.Attack();
+            }
+            if(enemy.tag == "Cyclops"){
+                Cyclops.Instance.Attack();
+            }
 
             
 
