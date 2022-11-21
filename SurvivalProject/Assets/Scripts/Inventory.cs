@@ -1,48 +1,57 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject inventory;
-    public Button CloseButton;
-    private bool isOpen = false;
-    //public static InventoryManager inventoryManager;
-
-    void Start()
+    private const int SLOTS = 9;
+    private List<IInventoryItem> mItems = new List<IInventoryItem>();
+    public event EventHandler<InventoryEventArgs> ItemAdded;
+    public event EventHandler<InventoryEventArgs> ItemRemoved;
+    public event EventHandler<InventoryEventArgs> ItemUsed;
+    
+    public void AddItem(IInventoryItem item)
     {
-        inventory.SetActive(false);
-       
-        CloseButton.onClick.AddListener(TaskOnClick);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B)){
-            //This Method keeps track what is looted and updates inventory every 
-            InventoryManager.Instance.ListItems();
-            isOpen = !isOpen;
-            if (isOpen){
-                inventory.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-
-            else {
-             inventory.SetActive(false);
-             Cursor.lockState = CursorLockMode.Locked;
-             Cursor.visible = true;
+        if(mItems.Count < SLOTS)
+        {
+            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
+            if(collider.enabled)
+            {
+                collider.enabled = false;
+                mItems.Add(item);
+                item.OnPickup();
+                if(ItemAdded != null)
+                {
+                    ItemAdded(this, new InventoryEventArgs(item));
+                }
             }
         }
     }
 
-    //When pressing Closebutton from inventory itself
-    void TaskOnClick(){
-        isOpen = !isOpen;
-        inventory.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+    public void RemoveItem(IInventoryItem item)
+    {
+        if(mItems.Contains(item))
+        {
+            mItems.Remove(item);
+            item.OnDrop();
+            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
+            if(collider != null)
+            {
+                collider.enabled = true;
+            }
+            if(ItemRemoved != null)
+            {
+                ItemRemoved(this, new InventoryEventArgs(item));
+            }
+        }
+    }
+
+    internal void UseItem(IInventoryItem item)
+    {
+        if(ItemUsed != null)
+        {
+            ItemUsed(this, new InventoryEventArgs(item));
+        }
     }
 }

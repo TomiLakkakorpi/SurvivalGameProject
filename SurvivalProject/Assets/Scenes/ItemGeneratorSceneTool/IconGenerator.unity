@@ -670,8 +670,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targets:
-  - name: 
-    obj: {fileID: 1068553519891591867, guid: 4bb5291a21fb70a42ba663daf3777d33, type: 3}
+  - name: Pickaxe
+    obj: {fileID: 5676840300738598790, guid: 2ce7f3f60a7219d478bdc624979d8024, type: 3}
   overlays: []
   customFolder: 
   rawIcon: {fileID: 0}
