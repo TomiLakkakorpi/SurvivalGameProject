@@ -6,6 +6,8 @@ public class PlayerInventory : MonoBehaviour
 {
     public static PlayerInventory Instance;
     public GameObject Hand;
+    public GameObject Head;
+    
     public Inventory inventory;
     private InventoryItemBase mItemToPickUp = null;
     private InventoryItemBase mCurrentItem = null;
@@ -105,15 +107,17 @@ public class PlayerInventory : MonoBehaviour
                     SetItemToHand(mCurrentItem, false);
                     mCurrentItem = null;
                 }
-                else
-                { 
-                    InventoryItemBase item = e.Item;
-                    // Use item (put it to hand of the player)
-                    SetItemToHand(item, true);
-                    mCurrentItem = e.Item;
-                }
-                
-
+                InventoryItemBase item = e.Item;
+                // Use item (put it to hand of the player)
+                SetItemToHand(item, true);
+                mCurrentItem = e.Item;
+            }
+            if (e.Item.ItemType == EItemType.Helmet)
+            {
+                InventoryItemBase item = e.Item;
+                GameObject currentItem = (item as MonoBehaviour).gameObject;
+                currentItem.SetActive(true);
+                currentItem.transform.parent = Head.transform;
             }
         }
         

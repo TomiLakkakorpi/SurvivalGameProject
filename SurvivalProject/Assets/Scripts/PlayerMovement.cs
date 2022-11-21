@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Idle()
     {
-        mAnimator.SetFloat("Speed", 0.1f, 0.15f, Time.deltaTime);
+        mAnimator.SetFloat("Speed", 0, 0.15f, Time.deltaTime);
     }
 
     private void Walk()

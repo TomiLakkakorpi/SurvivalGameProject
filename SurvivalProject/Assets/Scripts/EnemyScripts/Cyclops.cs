@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Cyclops : MonoBehaviour
 {
-    public PlayerStatus playerStatus;
     private Animator animCon;
     public static Cyclops Instance;    
 
@@ -68,7 +67,7 @@ public class Cyclops : MonoBehaviour
     {
         animCon.SetTrigger("Attack_01");
         yield return new WaitForSeconds(0.8f);
-        playerStatus.TakeDamage(15);
+        PlayerStatus.Instance.TakeDamage(15);
     }
 
 }

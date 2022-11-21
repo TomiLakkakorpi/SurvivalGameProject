@@ -1404,7 +1404,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7d67554d7c22141af076427b11005c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Image: {fileID: 21300000, guid: de307669a67268b4ea33005e0a21f96f, type: 3}
+  ItemType: 0
+  Name: 
+  Image: {fileID: 0}
+  PickPosition: {x: 0, y: 0, z: 0}
+  PickRotation: {x: 0, y: 0, z: 0}
+  DropRotation: {x: 0, y: 0, z: 0}
 --- !u!65 &613402310
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2052,7 +2057,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c884c1ddbf08d42a2bf640dbd17618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Image: {fileID: 21300000, guid: 77ad4fbce79de59428c418b4c56196a6, type: 3}
+  ItemType: 0
+  Name: 
+  Image: {fileID: 0}
+  PickPosition: {x: 0, y: 0, z: 0}
+  PickRotation: {x: 0, y: 0, z: 0}
+  DropRotation: {x: 0, y: 0, z: 0}
+  FoodAmount: 20
 --- !u!65 &855526210
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5368,10 +5379,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1593843403}
   - component: {fileID: 1593843402}
-  - component: {fileID: 1593843401}
   - component: {fileID: 1593843400}
   - component: {fileID: 1593843399}
   - component: {fileID: 1593843398}
+  - component: {fileID: 1593843404}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5391,14 +5402,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15246c0bf4fb2874199c862d04ce519f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 1676517523}
-  Hud: {fileID: 1704990369}
   HealthMultiplier: 0.0005
   HpBarImage: {fileID: 1365556640}
+  HealthCurrent: 0
   HungerBarImage: {fileID: 1412870610}
-  StarvationMultiplier: 0.5
+  HungerCurrent: 0
+  HungerRate: 0
   ThirstyBarImage: {fileID: 1440107275}
-  ThirstyMultiplier: 0.5
+  ThirstyCurrent: 0
+  ThirstRate: 0
 --- !u!65 &1593843399
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5428,29 +5440,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1593843401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1593843397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1695cabda14cc04c9f0d0c1b221f045, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0
-  walkSpeed: 5
-  runSpeed: 8
-  isGrounded: 0
-  groundCheckDistance: 0.35
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  gravity: -9.81
-  orientation: {fileID: 6337647}
-  jumpHeight: 0.8
 --- !u!143 &1593843402
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5488,6 +5477,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: -98.996, z: 0}
+--- !u!114 &1593843404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593843397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5392eb5ea25be84fa0707418b7d919c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  walkSpeed: 5
+  runSpeed: 7
+  isGrounded: 0
+  groundCheckDistance: 0.3
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  gravity: -9.81
+  orientation: {fileID: 6337647}
+  jumpHeight: 2
 --- !u!1 &1594953473 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1290125285081394, guid: 491dc122236ad9749a046177ea69736d, type: 3}

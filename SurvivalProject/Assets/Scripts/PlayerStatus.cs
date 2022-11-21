@@ -98,6 +98,12 @@ public class PlayerStatus : MonoBehaviour
             //This stops whole script
             enabled = false;
         }
+
+        if (HungerCurrent == 0) 
+            HealthCurrent -= HealthMultiplier;
+
+        if (ThirstyCurrent == 0) 
+            HealthCurrent -= HealthMultiplier;
     }
 
     private void IncreaseHunger()
@@ -108,9 +114,6 @@ public class PlayerStatus : MonoBehaviour
 
         HungerFill = HungerCurrent / HungerMax;
         HungerBarImage.fillAmount = HungerFill;
-
-        if (HungerCurrent == 0) 
-            HealthCurrent -= HealthMultiplier;
     }
 
     private void IncreaseThirst()
@@ -121,9 +124,6 @@ public class PlayerStatus : MonoBehaviour
 
         ThirstyFill = ThirstyCurrent / ThirstyMax;
         ThirstyBarImage.fillAmount = ThirstyFill;
-
-        if (ThirstyCurrent == 0) 
-            HealthCurrent -= HealthMultiplier;
     }
 
 }
