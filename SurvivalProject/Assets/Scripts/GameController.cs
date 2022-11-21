@@ -34,9 +34,4 @@ public class GameController : MonoBehaviour {
         Cursor.visible = true;
     }
 
-    public void OnPainettu()
-    {
-        Debug.Log("toimii");
-    }
-
 }
