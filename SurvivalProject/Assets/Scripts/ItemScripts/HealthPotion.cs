@@ -2,26 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPotion : MonoBehaviour, IInventoryItem
+public class HealthPotion : InventoryItemBase
 {
-   public string Name
+    public int HealthPoints = 20;
+    public override string Name
     {
         get {
             return "HealthPotion";
         }
     }
 
-    public Sprite _Image = null;
-
-    public Sprite Image
+    public override void OnUse()
     {
-        get {
-            return _Image;
-        }
-    }
-
-    public void OnPickup()
-    {
-        gameObject.SetActive(false);
+        // Add x amount of health to player
+        base.OnUse();
     }
 }

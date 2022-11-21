@@ -8,14 +8,13 @@ using System;
 public class PlayerStatus : MonoBehaviour
 {
     public static PlayerStatus Instance;
-    public Inventory inventory;
-    public HUD Hud;
 
     private float HealthFill;
     private float HungerFill;
     private float ThirstyFill;
     public static event Action OnPlayerDeath;
     public float HealthMultiplier = 0.0005f;
+    private bool isInventoryOpen = false;
 
 
     [Header("Player health")]
@@ -45,8 +44,8 @@ public class PlayerStatus : MonoBehaviour
         HealthCurrent = HealthMax;
         HungerCurrent = HungerMax;
         ThirstyCurrent = ThirstyMax;
-       
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -63,12 +62,21 @@ public class PlayerStatus : MonoBehaviour
         {
             TakeDamage(20);
         }
-        // Pickup item when near it by pressing F
-        if(Input.GetKeyDown(KeyCode.F) && mItemToPickUp != null)
+
+        if(Input.GetKeyDown(KeyCode.B))
         {
-            inventory.AddItem(mItemToPickUp);
-            mItemToPickUp.OnPickup();
-            Hud.CloseMessagePanel();
+            if(!isInventoryOpen)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                isInventoryOpen = true;
+            }
+            else if(isInventoryOpen)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                isInventoryOpen = false;
+            }
         }
     }
 
@@ -116,32 +124,11 @@ public class PlayerStatus : MonoBehaviour
             HealthCurrent -= HealthMultiplier; 
         } 
 
-        if(HealthFill < 0)
+        if(HealthFill <= 0)
         {
             OnPlayerDeath?.Invoke();
             //This stops whole script
             enabled = false;
-        }
-    }
-
-    private IInventoryItem mItemToPickUp = null;
-    private void OnTriggerEnter(Collider other)
-    {
-        IInventoryItem item = other.GetComponent<IInventoryItem>();
-        if(item != null)
-        {
-            mItemToPickUp = item;
-            Hud.OpenMessagePanel("");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        IInventoryItem item = other.GetComponent<IInventoryItem>();
-        if(item != null)
-        {
-            mItemToPickUp = null;
-            Hud.CloseMessagePanel();
         }
     }
 
