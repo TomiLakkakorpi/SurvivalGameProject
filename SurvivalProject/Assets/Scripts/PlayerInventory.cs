@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public static PlayerInventory Instance;
     public GameObject Hand;
     public Inventory inventory;
-    private IInventoryItem mItemToPickUp = null;
-    private IInventoryItem mCurrentItem = null;
+    private InventoryItemBase mItemToPickUp = null;
+    private InventoryItemBase mCurrentItem = null;
     public HUD Hud;
+    private bool isInventoryOpen = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -24,13 +31,30 @@ public class PlayerInventory : MonoBehaviour
             inventory.AddItem(mItemToPickUp);
             mItemToPickUp.OnPickup();
             Hud.CloseMessagePanel();
+            mItemToPickUp = null;
         }   
+
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            if(!isInventoryOpen)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                isInventoryOpen = true;
+            }
+            else if(isInventoryOpen)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                isInventoryOpen = false;
+            }
+        }
     }
 
     void FixedUpdate()
     {
         // Drop Item
-        if (Input.GetKeyDown(KeyCode.L) && mCurrentItem != null)
+        if (mCurrentItem != null && Input.GetKeyDown(KeyCode.L))
         {
             DropCurrentItem();
         }
@@ -49,34 +73,62 @@ public class PlayerInventory : MonoBehaviour
 
     public void DoDropItem()
     {
-        Destroy((mCurrentItem as MonoBehaviour).GetComponent<Rigidbody>());
+        if(mCurrentItem != null) 
+        {
+            Destroy((mCurrentItem as MonoBehaviour).GetComponent<Rigidbody>());
+            mCurrentItem = null;
+        }
     }
 
-     private void Inventory_ItemUsed(object sender, InventoryEventArgs e)
+    private void SetItemToHand(InventoryItemBase item, bool active)
     {
-        IInventoryItem item = e.Item;
-        GameObject goItem = (item as MonoBehaviour).gameObject;
-        goItem.SetActive(true);
+        GameObject currentItem = (item as MonoBehaviour).gameObject;
+        currentItem.SetActive(active);
+        currentItem.transform.parent = active ? Hand.transform : null;
 
-        goItem.transform.parent = Hand.transform;
-        mCurrentItem = e.Item;
-        mItemToPickUp = null;
-        
-        Collider collider = goItem.GetComponent<Collider>();
+        Collider collider = currentItem.GetComponent<Collider>();
         if(collider != null)
         {
             collider.enabled = false;
         }
     }
 
+    private void Inventory_ItemUsed(object sender, InventoryEventArgs e)
+    {
+        if (e.Item.ItemType != EItemType.Consumable)
+        {
+            if (e.Item.ItemType == EItemType.Weapon)
+            {
+                // If the player carries an item, un-use it (remove from player's hand)
+                if (mCurrentItem != null)
+                {
+                    SetItemToHand(mCurrentItem, false);
+                    mCurrentItem = null;
+                }
+                else
+                { 
+                    InventoryItemBase item = e.Item;
+                    // Use item (put it to hand of the player)
+                    SetItemToHand(item, true);
+                    mCurrentItem = e.Item;
+                }
+                
+
+            }
+        }
+        
+    }
+
     private void Inventory_ItemRemoved(object sender, InventoryEventArgs e)
     {
-        IInventoryItem item = e.Item;
+        InventoryItemBase item = e.Item;
+
         GameObject goItem = (item as MonoBehaviour).gameObject;
         goItem.SetActive(true);
-
         goItem.transform.parent = null;
-        mItemToPickUp = null;
+
+        if (item == mCurrentItem)
+            mCurrentItem = null;
 
         Collider collider = goItem.GetComponentInChildren<Collider>();
         if(collider != null)
@@ -87,7 +139,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        IInventoryItem item = other.GetComponent<IInventoryItem>();
+        InventoryItemBase item = other.GetComponent<InventoryItemBase>();
         if(item != null)
         {
             mItemToPickUp = item;
@@ -97,7 +149,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        IInventoryItem item = other.GetComponent<IInventoryItem>();
+        InventoryItemBase item = other.GetComponent<InventoryItemBase>();
         if(item != null)
         {
             mItemToPickUp = null;
