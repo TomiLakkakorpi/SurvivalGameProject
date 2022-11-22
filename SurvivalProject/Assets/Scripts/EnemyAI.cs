@@ -119,11 +119,22 @@ public class EnemyAI : MonoBehaviour
             if(enemy.tag == "Cyclops"){
                 Cyclops.Instance.Attack();
             }
+            if(enemy.tag == "HalfSpider"){
+                HalfSpider.Instance.Attack();
+            }
+            if(enemy.tag == "Gorgon"){
+                Gorgon.Instance.Attack();
+            }
+            if(enemy.tag == "Minotaur"){
+                Minotaur.Instance.Attack();
+            }
+            
 
             
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            chasing = false;
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Centaur : MonoBehaviour
 {
-    public PlayerStatus playerStatus;
+    
     private Animator animCon;    
     public static Centaur Instance;
 
@@ -69,7 +69,7 @@ public class Centaur : MonoBehaviour
     {
         animCon.SetTrigger("Attack_01");
         yield return new WaitForSeconds(0.8f);
-        playerStatus.TakeDamage(10);
+        PlayerStatus.Instance.TakeDamage(10);
     }
 
 }
