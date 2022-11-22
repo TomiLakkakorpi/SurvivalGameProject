@@ -117,3 +117,5 @@ MonoBehaviour:
   PickPosition: {x: 0, y: 0, z: 0}
   PickRotation: {x: 0, y: 0, z: 0}
   DropRotation: {x: 0, y: 0, z: 0}
+  dropHeight: {x: 0, y: 0.5, z: 0}
+  WaterAmount: 20

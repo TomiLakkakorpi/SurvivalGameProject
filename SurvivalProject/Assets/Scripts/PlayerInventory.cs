@@ -13,7 +13,9 @@ public class PlayerInventory : MonoBehaviour
     private InventoryItemBase mItemToPickUp = null;
     private InventoryItemBase mCurrentItem = null;
     public HUD Hud;
+    public GameObject orientation;
     private bool isInventoryOpen = false;
+    private Animator mAnimator;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Start()
     {
+        mAnimator = GetComponentInChildren<Animator>();
         inventory.ItemUsed += Inventory_ItemUsed;
         inventory.ItemRemoved += Inventory_ItemRemoved;
     }
@@ -52,10 +55,7 @@ public class PlayerInventory : MonoBehaviour
                 isInventoryOpen = false;
             }
         }
-    }
 
-    void FixedUpdate()
-    {
         // Drop Item
         if (mCurrentItem != null && Input.GetKeyDown(KeyCode.L))
         {
@@ -69,18 +69,10 @@ public class PlayerInventory : MonoBehaviour
         inventory.RemoveItem(mCurrentItem);
 
         Rigidbody rigidItem = goItem.AddComponent<Rigidbody>();
-        rigidItem.AddForce(transform.forward * 2.0f, ForceMode.Impulse);
+        rigidItem.AddForce(orientation.transform.forward * 5.0f, ForceMode.Impulse);
 
-        Invoke("DoDropItem", 0.25f);
-    }
-
-    public void DoDropItem()
-    {
-        if(mCurrentItem != null) 
-        {
-            Destroy((mCurrentItem as MonoBehaviour).GetComponent<Rigidbody>());
-            mCurrentItem = null;
-        }
+        mCurrentItem = null;
+        mAnimator.SetBool("Armed", false);
     }
 
     private void SetItemToHand(InventoryItemBase item, bool active)
@@ -112,6 +104,7 @@ public class PlayerInventory : MonoBehaviour
                 // Use item (put it to hand of the player)
                 SetItemToHand(item, true);
                 mCurrentItem = e.Item;
+                mAnimator.SetBool("Armed", true);
             }
             if (e.Item.ItemType == EItemType.Helmet)
             {
@@ -140,7 +133,10 @@ public class PlayerInventory : MonoBehaviour
         goItem.transform.parent = null;
 
         if (item == mCurrentItem)
+        {
             mCurrentItem = null;
+            mAnimator.SetBool("Armed", false);
+        }
 
         Collider collider = goItem.GetComponentInChildren<Collider>();
         if(collider != null)

@@ -100,9 +100,10 @@ MonoBehaviour:
   ItemType: 5
   Name: Iron armor
   Image: {fileID: 21300000, guid: 685b167428618c04e8771f0cd7104cc8, type: 3}
-  PickPosition: {x: -0.02, y: -2.48, z: 0.002}
+  PickPosition: {x: 0, y: -2.48, z: 0.002}
   PickRotation: {x: 0, y: 0, z: 0}
   DropRotation: {x: 0, y: 0, z: 0}
+  dropHeight: {x: 0, y: -0.2, z: 0}
 --- !u!64 &266014124232819259
 MeshCollider:
   m_ObjectHideFlags: 0

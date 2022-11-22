@@ -93,7 +93,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3093752058127405510}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
@@ -117,4 +117,5 @@ MonoBehaviour:
   PickPosition: {x: 0, y: 0, z: 0}
   PickRotation: {x: 0, y: 0, z: 0}
   DropRotation: {x: 0, y: 0, z: 0}
+  dropHeight: {x: 0, y: 0.5, z: 0}
   HealthPoints: 20

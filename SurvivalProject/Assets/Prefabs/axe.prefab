@@ -116,4 +116,4 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: e489c245ca7100542bfce9ffbcc59629, type: 3}
   PickPosition: {x: 0.33, y: 2.01, z: 0.04}
   PickRotation: {x: 180, y: 0, z: 86}
-  DropRotation: {x: 0, y: 0, z: 0}
+  DropRotation: {x: 0, y: 0, z: 90}
