@@ -38,6 +38,8 @@ public class InventoryItemBase : MonoBehaviour
             gameObject.SetActive(true);
             gameObject.transform.position = Hit.point;
             gameObject.transform.eulerAngles = DropRotation;
+
+            gameObject.AddComponent<Rigidbody>();
         }
     }
 

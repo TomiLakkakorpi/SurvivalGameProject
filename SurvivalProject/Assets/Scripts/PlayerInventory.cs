@@ -7,6 +7,7 @@ public class PlayerInventory : MonoBehaviour
     public static PlayerInventory Instance;
     public GameObject Hand;
     public GameObject Head;
+    public GameObject Body;
     
     public Inventory inventory;
     private InventoryItemBase mItemToPickUp = null;
@@ -118,6 +119,13 @@ public class PlayerInventory : MonoBehaviour
                 GameObject currentItem = (item as MonoBehaviour).gameObject;
                 currentItem.SetActive(true);
                 currentItem.transform.parent = Head.transform;
+            }
+            if (e.Item.ItemType == EItemType.Breastplate)
+            {
+                InventoryItemBase item = e.Item;
+                GameObject currentItem = (item as MonoBehaviour).gameObject;
+                currentItem.SetActive(true);
+                currentItem.transform.parent = Body.transform;
             }
         }
         
