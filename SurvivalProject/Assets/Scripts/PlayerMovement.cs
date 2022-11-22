@@ -1,150 +1,144 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
+    // VARIABLES
     public float moveSpeed;
     public float walkSpeed;
-    public float sprintSpeed;
-
-    public float groundDrag;
-
-    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
-    bool readyToJump;
-
-    [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;
-
-    [Header("Ground Check")]
-    public float playerHeight;
-    public LayerMask whatIsGround;
-    bool grounded;
-
+    public float runSpeed;
+    private Vector3 moveDirection;
+    private Vector3 velocity;
+    public bool isGrounded;
+    public float groundCheckDistance;
+    public LayerMask groundMask;
+    public float gravity;
     public Transform orientation;
+    public float jumpHeight;
+    private float punchCooldown = 0.8f;
+    private float nextPunch;
+    private float jumpCooldown = 1.5f;
+    private float nextJump;
+    private float fallTime = 0;
 
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
-
-    Rigidbody rb;
-    Animator mAnimator;
+    // REFERENCES
+    private CharacterController controller;
+    private Animator mAnimator;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
         mAnimator = GetComponentInChildren<Animator>();
-        rb.freezeRotation = true;
-
-        readyToJump = true;
     }
 
-    private void Update()
+    private void Update() 
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, whatIsGround);
-
-        MyInput();
-        SpeedControl();
-
-        // handle drag
-        if (grounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
+        Move();
     }
 
-    private void FixedUpdate()
+    private void Move()
     {
-        MovePlayer();
-    }
+        isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
 
-    private void MyInput()
-    {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        if(isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
 
-        // when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
-        {
-            readyToJump = false;
-            Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-        else if(Input.GetKey(KeyCode.LeftShift) && grounded)
-        {
-            Run();
-        }
-        else if(moveDirection == Vector3.zero)
-        {
-            Idle();
-        }
-    }
+        // Get inputs to move (wsad or arrow keys by default)
+        float moveZ = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxis("Horizontal");
 
-    private void MovePlayer()
-    {
-        // calculate movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = new Vector3(moveX, 0, moveZ);
+        // Make the player move where character is looking
+        moveDirection = orientation.forward * moveZ + orientation.right * moveX;
 
-        // on ground
-        if(grounded) 
+        if(isGrounded)
         {
-            Walk();
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-        }
-        // in air
-        else if(!grounded)
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-        }
-    }
+            mAnimator.SetBool("Falling", false);
+            //Do damage to player according to fallTime
+            if(fallTime > 2) {
+                PlayerStatus.Instance.TakeDamage(fallTime * 10);
+            }
+            fallTime = 0;
 
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        // limit velocity if needed
-        if(flatVel.magnitude > moveSpeed)
-        {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            // Idle, Walking and running
+            if(moveDirection == Vector3.zero)
+            {
+                Idle();
+            }
+            else if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
+            {
+                Walk();
+            }
+            else if(moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+            {
+                Run();
+            }
+            // Jumping
+            if(Input.GetKeyDown(KeyCode.Space) && Time.time > nextJump)
+            {
+                nextJump = Time.time + jumpCooldown;
+                Jump();
+            }
+            // Punch
+            if(Input.GetMouseButtonDown(0) && Time.time > nextPunch)
+            {
+                nextPunch = Time.time + punchCooldown;
+                Hit();
+            }
+            // Roll
+            if(Input.GetKeyDown(KeyCode.V))
+            {
+                mAnimator.SetTrigger("Roll");
+            }
         }
+        else if(!isGrounded)
+        {
+            Fall();
+        }
+        
+        moveDirection *= moveSpeed;
+
+        controller.Move(moveDirection * Time.deltaTime);
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     private void Idle()
     {
-        moveSpeed = 0;
         mAnimator.SetFloat("Speed", 0, 0.15f, Time.deltaTime);
     }
 
     private void Walk()
     {
         moveSpeed = walkSpeed;
-        mAnimator.SetFloat("Speed", 0.5f, 0.15f, Time.deltaTime);
+        mAnimator.SetFloat("Speed", 0.4f, 0.15f, Time.deltaTime);
     }
 
     private void Run()
     {
-        moveSpeed = sprintSpeed;
+        moveSpeed = runSpeed;
         mAnimator.SetFloat("Speed", 1, 0.15f, Time.deltaTime);
     }
 
     private void Jump()
     {
-        // reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         mAnimator.SetTrigger("Jump");
     }
 
-    private void ResetJump()
+    private void Hit()
     {
-        readyToJump = true;
+        // Deal damage here
+        mAnimator.SetTrigger("Hit");
+    }
+
+    private void Fall()
+    {
+        mAnimator.SetBool("Falling", true);
+        fallTime += Time.deltaTime;
     }
 }
