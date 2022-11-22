@@ -1,25 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Centaur : MonoBehaviour
 {
-    
-    private Animator animCon;    
-    public static Centaur Instance;
+    private Animator animCon;
+    public static Centaur Instance; 
+
+    private float health;
+    private float maxHealth = 100f;
+
+    public GameObject healthBarUI;
+    public Slider slider;
 
     void Start()
     {
+        healthBarUI.SetActive(false);
+        health = 50f;
+        slider.value = CalculateHealth();
         animCon = GetComponent<Animator>();
     }
 
-     private void Awake()
+      private void Awake()
     {
         Instance = this;   
     }
-   
+
     void Update()
     {
+        //Health
+        slider.value = CalculateHealth();
+
+        if(health < maxHealth)
+        {
+            healthBarUI.SetActive(true);
+        }
+
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        //Animations
         if (EnemyAI.Instance.patrolling == true)
         {
             Walk();
@@ -34,9 +62,8 @@ public class Centaur : MonoBehaviour
         }
         if (EnemyAI.Instance.attacking == true && EnemyAI.Instance.chasing == false)
         {
-            CombatIdle();  
+            CombatIdle();
         }
-       
     }
 
     private void Idle()
@@ -61,6 +88,7 @@ public class Centaur : MonoBehaviour
 
     public void Attack()
     {
+        CombatIdle();
         //Animation without this delay is not in sync
         StartCoroutine(WaitBeforeDamage());
     }
@@ -68,8 +96,12 @@ public class Centaur : MonoBehaviour
     IEnumerator WaitBeforeDamage()
     {
         animCon.SetTrigger("Attack_01");
-        yield return new WaitForSeconds(0.8f);
-        PlayerStatus.Instance.TakeDamage(10);
+        yield return new WaitForSeconds(0.95f);
+        PlayerStatus.Instance.TakeDamage(15);
     }
 
+    float CalculateHealth()
+    {
+        return health / maxHealth;
+    }
 }

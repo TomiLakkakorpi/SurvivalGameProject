@@ -134,7 +134,7 @@ public class EnemyAI : MonoBehaviour
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
-            chasing = false;
+            
         }
     }
 

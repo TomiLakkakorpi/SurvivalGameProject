@@ -1,14 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gorgon : MonoBehaviour
 {
     private Animator animCon;
-    public static Gorgon Instance;    
+    public static Gorgon Instance; 
+
+    private float health;
+    private float maxHealth = 100f;
+
+    public GameObject healthBarUI;
+    public Slider slider;
 
     void Start()
     {
+        healthBarUI.SetActive(false);
+        health = 50f;
+        slider.value = CalculateHealth();
         animCon = GetComponent<Animator>();
     }
 
@@ -19,6 +29,25 @@ public class Gorgon : MonoBehaviour
 
     void Update()
     {
+        //Health
+        slider.value = CalculateHealth();
+
+        if(health < maxHealth)
+        {
+            healthBarUI.SetActive(true);
+        }
+
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        //Animations
         if (EnemyAI.Instance.patrolling == true)
         {
             Walk();
@@ -71,4 +100,8 @@ public class Gorgon : MonoBehaviour
         PlayerStatus.Instance.TakeDamage(15);
     }
 
+    float CalculateHealth()
+    {
+        return health / maxHealth;
+    }
 }
