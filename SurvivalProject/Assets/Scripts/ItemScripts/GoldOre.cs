@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class GoldOre : InventoryItemBase
 {
-    public override string Name
+    public int FoodAmount = 20;
+
+    public override void OnUse()
     {
-        get {
-            return "GoldOre";
-        }
+        // Add x amount of food to player
+        PlayerStatus.Instance.IncreaseFood(FoodAmount);
+        PlayerInventory.Instance.inventory.RemoveItem(this);
+        Destroy(this.gameObject);
     }
 }
