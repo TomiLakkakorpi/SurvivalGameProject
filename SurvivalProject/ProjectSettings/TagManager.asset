@@ -10,6 +10,7 @@ TagManager:
   - HalfSpider
   - Gorgon
   - Minotaur
+  - Harpy
   layers:
   - Default
   - TransparentFX
