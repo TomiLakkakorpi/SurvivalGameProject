@@ -4,11 +4,5 @@ using UnityEngine;
 
 public class PickAxe : InventoryItemBase
 {
-    public override string Name
-    {
-        get {
-            return "PickAxe";
-        }
-    }
 
 }

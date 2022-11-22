@@ -2,24 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItemBase : MonoBehaviour, IInventoryItem
+public enum EItemType
 {
+    Default,
+    Consumable,
+    Weapon,
+    Offhand,
+    Helmet,
+    Breastplate
+}
+
+public class InventoryItemBase : MonoBehaviour
+{
+    public InventorySlot Slot
+    {
+        get; set;
+    }
+    public EItemType ItemType;
     private Camera Cam;
-    void Awake() {
+
+    void Awake() 
+    {
         Cam = GameObject.Find("Player").transform.Find("CameraRoot").GetChild(0).GetComponent<Camera>();
     }
-    public virtual string Name
-    {
-        get {
-            return "base_item";
-        }
-    }
-
-    public Sprite _Image; 
-    public Sprite Image
-    {
-        get { return _Image; }
-    }
+    public string Name;
+    
+    public Sprite Image;
 
     public virtual void OnDrop()
     {
@@ -35,6 +43,8 @@ public class InventoryItemBase : MonoBehaviour, IInventoryItem
 
     public virtual void OnPickup()
     {
+        //If item has rigidbody component, destroy it
+        Destroy(gameObject.GetComponent<Rigidbody>());
         gameObject.SetActive(false);
     }
 

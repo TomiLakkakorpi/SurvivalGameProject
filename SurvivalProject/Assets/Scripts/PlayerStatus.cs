@@ -14,25 +14,26 @@ public class PlayerStatus : MonoBehaviour
     private float ThirstyFill;
     public static event Action OnPlayerDeath;
     public float HealthMultiplier = 0.0005f;
-    private bool isInventoryOpen = false;
 
+    //References
+    private Animator mAnimator;
 
     [Header("Player health")]
     public Image HpBarImage;
     private float HealthMax = 100;
-    private float HealthCurrent;
+    [SerializeField] private float HealthCurrent;
     
     [Header("Player Hunger")]
     public Image HungerBarImage;
     private float HungerMax = 100;
-    private float HungerCurrent;
-    public float StarvationMultiplier;
+    [SerializeField] private float HungerCurrent;
+    public float HungerRate;
 
     [Header("Player Thirsty")]
     public Image ThirstyBarImage;
     private float ThirstyMax = 100;
-    private float ThirstyCurrent;
-    public float ThirstyMultiplier;
+    [SerializeField] private float ThirstyCurrent;
+    public float ThirstRate;
 
     private void Awake()
     {
@@ -41,20 +42,20 @@ public class PlayerStatus : MonoBehaviour
    
     void Start()
     {
+        mAnimator = GetComponentInChildren<Animator>();
         HealthCurrent = HealthMax;
         HungerCurrent = HungerMax;
+        HungerBarImage.fillAmount = HungerCurrent;
         ThirstyCurrent = ThirstyMax;
+        ThirstyBarImage.fillAmount = ThirstyCurrent;
+
+        InvokeRepeating("IncreaseHunger", 0, HungerRate);
+        InvokeRepeating("IncreaseThirst", 0, ThirstRate);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        //reduce hunger by time, with multiplyer
-        HungerCurrent = HungerMax - Time.timeSinceLevelLoad * StarvationMultiplier;
-
-        //reduce thirsty by time
-        ThirstyCurrent = ThirstyMax - Time.timeSinceLevelLoad * ThirstyMultiplier;
-        
+    {   
         GetCurrentFill();
 
         // DEBUGGING METHOD DELETE AFTER
@@ -62,27 +63,12 @@ public class PlayerStatus : MonoBehaviour
         {
             TakeDamage(20);
         }
-
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            if(!isInventoryOpen)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                isInventoryOpen = true;
-            }
-            else if(isInventoryOpen)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                isInventoryOpen = false;
-            }
-        }
     }
 
     public void TakeDamage(float damage)
     {
         HealthCurrent -= damage;
+        mAnimator.SetTrigger("GetHit");
     }
 
     public void IncreaseHealth(int value)
@@ -100,29 +86,11 @@ public class PlayerStatus : MonoBehaviour
         ThirstyCurrent += value;
     }
 
-    
     public void GetCurrentFill()
     {
         //Fill amount of imagebars
         HealthFill = HealthCurrent / HealthMax;
         HpBarImage.fillAmount = HealthFill;
-
-        HungerFill = HungerCurrent / HungerMax;
-        HungerBarImage.fillAmount = HungerFill;
-
-        ThirstyFill = ThirstyCurrent / ThirstyMax;
-        ThirstyBarImage.fillAmount = ThirstyFill;
-        
-        //if statements when hungry and thirsty then reduce health
-        if(HungerFill < 0)
-        {
-            HealthCurrent -= HealthMultiplier;
-        }
-        
-        if(ThirstyFill < 0)
-        {
-            HealthCurrent -= HealthMultiplier; 
-        } 
 
         if(HealthFill <= 0)
         {
@@ -130,6 +98,32 @@ public class PlayerStatus : MonoBehaviour
             //This stops whole script
             enabled = false;
         }
+
+        if (HungerCurrent == 0) 
+            HealthCurrent -= HealthMultiplier;
+
+        if (ThirstyCurrent == 0) 
+            HealthCurrent -= HealthMultiplier;
+    }
+
+    private void IncreaseHunger()
+    {
+        HungerCurrent--;
+        if (HungerCurrent < 0)
+            HungerCurrent = 0;
+
+        HungerFill = HungerCurrent / HungerMax;
+        HungerBarImage.fillAmount = HungerFill;
+    }
+
+    private void IncreaseThirst()
+    {
+        ThirstyCurrent--;
+        if (ThirstyCurrent < 0)
+            ThirstyCurrent = 0;
+
+        ThirstyFill = ThirstyCurrent / ThirstyMax;
+        ThirstyBarImage.fillAmount = ThirstyFill;
     }
 
 }
