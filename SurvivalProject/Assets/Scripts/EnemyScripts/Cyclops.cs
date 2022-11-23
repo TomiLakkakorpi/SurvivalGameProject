@@ -1,14 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cyclops : MonoBehaviour
 {
     private Animator animCon;
     public static Cyclops Instance;    
 
+    private float health;
+    private float maxHealth = 100f;
+
+    public GameObject healthBarUI;
+    public Slider slider;
+
     void Start()
     {
+        healthBarUI.SetActive(false);
+        health = 50f;
+        slider.value = CalculateHealth();
         animCon = GetComponent<Animator>();
     }
 
@@ -19,6 +29,24 @@ public class Cyclops : MonoBehaviour
 
     void Update()
     {
+        //Health
+        slider.value = CalculateHealth();
+
+        if(health < maxHealth)
+        {
+            healthBarUI.SetActive(true);
+        }
+
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
+        //Animations
         if (EnemyAI.Instance.patrolling == true)
         {
             Walk();
@@ -27,10 +55,10 @@ public class Cyclops : MonoBehaviour
         {
             Run();
         }
-        // if(EnemyAI.Instance.chasing == true && EnemyAI.Instance.attacking == true)
-        // {
-        //     Walk();
-        // }
+        if(EnemyAI.Instance.chasing == true && EnemyAI.Instance.attacking == true)
+        {
+            Walk();
+        }
         if (EnemyAI.Instance.attacking == true && EnemyAI.Instance.chasing == false)
         {
             CombatIdle();
@@ -68,6 +96,11 @@ public class Cyclops : MonoBehaviour
         animCon.SetTrigger("Attack_01");
         yield return new WaitForSeconds(0.8f);
         PlayerStatus.Instance.TakeDamage(15);
+    }
+
+    float CalculateHealth()
+    {
+        return health / maxHealth;
     }
 
 }
