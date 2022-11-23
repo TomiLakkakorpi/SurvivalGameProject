@@ -9,6 +9,8 @@ public class PlayerStatus : MonoBehaviour
 {
     public static PlayerStatus Instance;
 
+
+
     private float HealthFill;
     private float HungerFill;
     private float ThirstyFill;
@@ -22,7 +24,7 @@ public class PlayerStatus : MonoBehaviour
     public Image HpBarImage;
     private float HealthMax = 100;
     [SerializeField] private float HealthCurrent;
-    
+
     [Header("Player Hunger")]
     public Image HungerBarImage;
     private float HungerMax = 100;
@@ -39,7 +41,7 @@ public class PlayerStatus : MonoBehaviour
     {
         Instance = this;
     }
-   
+
     void Start()
     {
         mAnimator = GetComponentInChildren<Animator>();
@@ -49,17 +51,18 @@ public class PlayerStatus : MonoBehaviour
         ThirstyCurrent = ThirstyMax;
         ThirstyBarImage.fillAmount = ThirstyCurrent;
 
+
         InvokeRepeating("IncreaseHunger", 0, HungerRate);
         InvokeRepeating("IncreaseThirst", 0, ThirstRate);
     }
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         GetCurrentFill();
 
         // DEBUGGING METHOD DELETE AFTER
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             TakeDamage(20);
         }
@@ -76,12 +79,12 @@ public class PlayerStatus : MonoBehaviour
         HealthCurrent += value;
     }
 
-     public void IncreaseFood(int value)
+    public void IncreaseFood(int value)
     {
         HungerCurrent += value;
     }
 
-     public void IncreaseDrink(int value)
+    public void IncreaseDrink(int value)
     {
         ThirstyCurrent += value;
     }
@@ -92,17 +95,24 @@ public class PlayerStatus : MonoBehaviour
         HealthFill = HealthCurrent / HealthMax;
         HpBarImage.fillAmount = HealthFill;
 
-        if(HealthFill <= 0)
+        if (HealthFill <= 0)
         {
+            GetComponent<PlayerMovement>().enabled = false;
+            GameObject.Find("Camera").GetComponent<ThirdPersonCam>().enabled = false;
+            GameObject.Find("Character").GetComponent<Animator>().enabled = false;
+            GameObject.Find("ThirdPersonCam").SetActive(false);
+
+            //GetComponent<ThirdPersonCam>().enabled = false;
+
             OnPlayerDeath?.Invoke();
             //This stops whole script
             enabled = false;
         }
 
-        if (HungerCurrent == 0) 
+        if (HungerCurrent == 0)
             HealthCurrent -= HealthMultiplier;
 
-        if (ThirstyCurrent == 0) 
+        if (ThirstyCurrent == 0)
             HealthCurrent -= HealthMultiplier;
     }
 
