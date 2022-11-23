@@ -9,8 +9,6 @@ public class PlayerStatus : MonoBehaviour
 {
     public static PlayerStatus Instance;
 
-
-
     private float HealthFill;
     private float HungerFill;
     private float ThirstyFill;
@@ -97,12 +95,17 @@ public class PlayerStatus : MonoBehaviour
 
         if (HealthFill <= 0)
         {
-            GetComponent<PlayerMovement>().enabled = false;
-            GameObject.Find("Camera").GetComponent<ThirdPersonCam>().enabled = false;
-            GameObject.Find("Character").GetComponent<Animator>().enabled = false;
-            GameObject.Find("ThirdPersonCam").SetActive(false);
+            //Death animation's function
+            Death();
 
-            //GetComponent<ThirdPersonCam>().enabled = false;
+            //Disables player movement
+            GetComponent<PlayerMovement>().enabled = false;
+
+            //Freezes 3rdpersoncam under Camera
+            GameObject.Find("Camera").GetComponent<ThirdPersonCam>().enabled = false;
+
+            //Freezes 3rdpersoncam
+            GameObject.Find("ThirdPersonCam").SetActive(false);
 
             OnPlayerDeath?.Invoke();
             //This stops whole script
@@ -136,4 +139,8 @@ public class PlayerStatus : MonoBehaviour
         ThirstyBarImage.fillAmount = ThirstyFill;
     }
 
+    private void Death()
+    {
+        mAnimator.SetTrigger("Death");
+    }
 }
