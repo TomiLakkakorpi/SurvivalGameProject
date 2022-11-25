@@ -446,7 +446,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117791976}
-  m_LocalRotation: {x: 0.05387786, y: 0.5126851, z: -0.03225869, w: 0.8562772}
+  m_LocalRotation: {x: 0.053877868, y: 0.5126851, z: -0.032258693, w: 0.8562772}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -615,7 +615,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5676840300738431910, guid: 2ce7f3f60a7219d478bdc624979d8024, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5676840300738431910, guid: 2ce7f3f60a7219d478bdc624979d8024, type: 3}
       propertyPath: m_LocalScale.x
@@ -939,6 +939,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 456708878}
+  - {fileID: 1293326507}
+  - {fileID: 2038649677}
+  - {fileID: 2049192503}
   - {fileID: 1596970061}
   - {fileID: 100960141}
   - {fileID: 1332225531}
@@ -960,7 +964,11 @@ MonoBehaviour:
   tree: {fileID: 0}
   isTreeMoved: 0
   isTreeHit: 0
-  isPlayerInsideArea: 0
+  isPlayerNearTree: 0
+  isTreeHitOnce: 0
+  isTreeHitTwice: 0
+  isTreeHitThrice: 0
+  treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 0}
   Log2SpawnPoint: {fileID: 0}
@@ -1079,7 +1087,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2941862985958893159, guid: 5fb8551cdf1e6d64f95e9575452fa3e1, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2941862985958893159, guid: 5fb8551cdf1e6d64f95e9575452fa3e1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1396,7 +1404,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 266932106}
     m_Modifications:
     - target: {fileID: 188006, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_Name
@@ -1404,19 +1412,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 481554, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 481554, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41.65
+      value: -29.783714
       objectReference: {fileID: 0}
     - target: {fileID: 481554, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.43
+      value: 19.929289
       objectReference: {fileID: 0}
     - target: {fileID: 481554, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -56.29
+      value: -58.13585
       objectReference: {fileID: 0}
     - target: {fileID: 481554, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1428,7 +1436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 481554, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 481554, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1473,7 +1481,11 @@ MonoBehaviour:
   tree: {fileID: 456708878}
   isTreeMoved: 0
   isTreeHit: 0
-  isPlayerInsideArea: 0
+  isPlayerNearTree: 0
+  isTreeHitOnce: 0
+  isTreeHitTwice: 0
+  isTreeHitThrice: 0
+  treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
   Log2SpawnPoint: {fileID: 946384311}
@@ -1963,7 +1975,7 @@ RectTransform:
   - {fileID: 1819457055}
   - {fileID: 486345638}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2016,7 +2028,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8307322894754653445, guid: 53168ceb81c92934d9d8edab7fef6d9e, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8307322894754653445, guid: 53168ceb81c92934d9d8edab7fef6d9e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2490,7 +2502,11 @@ MonoBehaviour:
   tree: {fileID: 100960141}
   isTreeMoved: 0
   isTreeHit: 0
-  isPlayerInsideArea: 0
+  isPlayerNearTree: 0
+  isTreeHitOnce: 0
+  isTreeHitTwice: 0
+  isTreeHitThrice: 0
+  treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
   Log2SpawnPoint: {fileID: 946384311}
@@ -2591,7 +2607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 58c79ebc04f48c74fa4869c3f7d941fd, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 58c79ebc04f48c74fa4869c3f7d941fd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3368,7 +3384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1708662816026537028, guid: 4619a944319890a4f9a7988d25995cf9, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1708662816026537028, guid: 4619a944319890a4f9a7988d25995cf9, type: 3}
       propertyPath: m_LocalScale.x
@@ -3534,7 +3550,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 266932106}
     m_Modifications:
     - target: {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_Name
@@ -3542,19 +3558,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 471828, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 471828, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.97
+      value: -15.103712
       objectReference: {fileID: 0}
     - target: {fileID: 471828, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.34
+      value: 19.839289
       objectReference: {fileID: 0}
     - target: {fileID: 471828, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -46.96
+      value: -48.805847
       objectReference: {fileID: 0}
     - target: {fileID: 471828, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3566,7 +3582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 471828, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 471828, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_LocalRotation.z
@@ -3611,7 +3627,11 @@ MonoBehaviour:
   tree: {fileID: 1293326507}
   isTreeMoved: 0
   isTreeHit: 0
-  isPlayerInsideArea: 0
+  isPlayerNearTree: 0
+  isTreeHitOnce: 0
+  isTreeHitTwice: 0
+  isTreeHitThrice: 0
+  treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
   Log2SpawnPoint: {fileID: 946384311}
@@ -3700,7 +3720,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1319552377
 GameObject:
@@ -4085,7 +4105,11 @@ MonoBehaviour:
   tree: {fileID: 1332225531}
   isTreeMoved: 0
   isTreeHit: 0
-  isPlayerInsideArea: 0
+  isPlayerNearTree: 0
+  isTreeHitOnce: 0
+  isTreeHitTwice: 0
+  isTreeHitThrice: 0
+  treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
   Log2SpawnPoint: {fileID: 946384311}
@@ -4712,7 +4736,7 @@ Transform:
   - {fileID: 667040909}
   - {fileID: 1319552380}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -61.821, z: 0}
 --- !u!54 &1546009471
 Rigidbody:
@@ -5114,7 +5138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4252784401376168, guid: 22a3fd8d3e59a1149bdcd775c0e87241, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4252784401376168, guid: 22a3fd8d3e59a1149bdcd775c0e87241, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5183,7 +5207,11 @@ MonoBehaviour:
   tree: {fileID: 1596970061}
   isTreeMoved: 0
   isTreeHit: 0
-  isPlayerInsideArea: 0
+  isPlayerNearTree: 0
+  isTreeHitOnce: 0
+  isTreeHitTwice: 0
+  isTreeHitThrice: 0
+  treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
   Log2SpawnPoint: {fileID: 946384311}
@@ -5812,7 +5840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 464830, guid: fb5a9652227c545d98a413cd73b80b69, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 464830, guid: fb5a9652227c545d98a413cd73b80b69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5874,7 +5902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4372482557233378, guid: 20515f88563ab2f47a21653ebf68db85, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4372482557233378, guid: 20515f88563ab2f47a21653ebf68db85, type: 3}
       propertyPath: m_LocalScale.x
@@ -6231,7 +6259,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5676840300738431910, guid: 2ce7f3f60a7219d478bdc624979d8024, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5676840300738431910, guid: 2ce7f3f60a7219d478bdc624979d8024, type: 3}
       propertyPath: m_LocalScale.x
@@ -6534,7 +6562,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1965949724 stripped
 Transform:
@@ -6635,7 +6663,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 266932106}
     m_Modifications:
     - target: {fileID: 1612273161005096, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
       propertyPath: m_Name
@@ -6643,19 +6671,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4586821900076392, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4586821900076392, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41.349735
+      value: -29.483448
       objectReference: {fileID: 0}
     - target: {fileID: 4586821900076392, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.69
+      value: 18.18929
       objectReference: {fileID: 0}
     - target: {fileID: 4586821900076392, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -50.727524
+      value: -52.57337
       objectReference: {fileID: 0}
     - target: {fileID: 4586821900076392, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6663,7 +6691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4586821900076392, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4586821900076392, guid: ae9772ea62bbc724eb9b8ef81109f733, type: 3}
       propertyPath: m_LocalRotation.y
@@ -6712,7 +6740,11 @@ MonoBehaviour:
   tree: {fileID: 2038649677}
   isTreeMoved: 0
   isTreeHit: 0
-  isPlayerInsideArea: 0
+  isPlayerNearTree: 0
+  isTreeHitOnce: 0
+  isTreeHitTwice: 0
+  isTreeHitThrice: 0
+  treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
   Log2SpawnPoint: {fileID: 946384311}
@@ -6840,7 +6872,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 266932106}
     m_Modifications:
     - target: {fileID: 1458573784885960, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
       propertyPath: m_Name
@@ -6848,19 +6880,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4202130902894980, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4202130902894980, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.21505
+      value: -24.348763
       objectReference: {fileID: 0}
     - target: {fileID: 4202130902894980, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.31
+      value: 18.809288
       objectReference: {fileID: 0}
     - target: {fileID: 4202130902894980, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -46.109196
+      value: -47.955044
       objectReference: {fileID: 0}
     - target: {fileID: 4202130902894980, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6868,7 +6900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4202130902894980, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4202130902894980, guid: 6910e2407cd484a42a0c2598114751a0, type: 3}
       propertyPath: m_LocalRotation.y
@@ -6917,7 +6949,11 @@ MonoBehaviour:
   tree: {fileID: 2049192503}
   isTreeMoved: 0
   isTreeHit: 0
-  isPlayerInsideArea: 0
+  isPlayerNearTree: 0
+  isTreeHitOnce: 0
+  isTreeHitTwice: 0
+  isTreeHitThrice: 0
+  treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
   Log2SpawnPoint: {fileID: 946384311}
@@ -6948,7 +6984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4804107082955232, guid: 48f39bd5634d72d4e82593bb88746a87, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4804107082955232, guid: 48f39bd5634d72d4e82593bb88746a87, type: 3}
       propertyPath: m_LocalScale.x
@@ -6964,15 +7000,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4804107082955232, guid: 48f39bd5634d72d4e82593bb88746a87, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.47
+      value: -19.28
       objectReference: {fileID: 0}
     - target: {fileID: 4804107082955232, guid: 48f39bd5634d72d4e82593bb88746a87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.87
+      value: 11.02
       objectReference: {fileID: 0}
     - target: {fileID: 4804107082955232, guid: 48f39bd5634d72d4e82593bb88746a87, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -71.3
+      value: -43.36
       objectReference: {fileID: 0}
     - target: {fileID: 4804107082955232, guid: 48f39bd5634d72d4e82593bb88746a87, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7045,7 +7081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 58c79ebc04f48c74fa4869c3f7d941fd, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 58c79ebc04f48c74fa4869c3f7d941fd, type: 3}
       propertyPath: m_LocalPosition.x

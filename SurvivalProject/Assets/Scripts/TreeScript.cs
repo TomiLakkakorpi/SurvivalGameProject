@@ -5,9 +5,16 @@ using UnityEngine;
 public class TreeScript : MonoBehaviour
 {
     public Transform tree;
+
     public bool isTreeMoved = false;
     public bool isTreeHit = false;
-    public bool isPlayerInsideArea = false;
+    public bool isPlayerNearTree = false;
+
+    public bool isTreeHitOnce = false;
+    public bool isTreeHitTwice = false;
+    public bool isTreeHitThrice = false;
+
+    public int treeHitCount = 0;
 
     public GameObject TestLog;
 
@@ -15,78 +22,100 @@ public class TreeScript : MonoBehaviour
     [SerializeField] private Transform Log2SpawnPoint;
     [SerializeField] private Transform Log3SpawnPoint;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         //Check if button has been pressed
-        if(Input.GetKeyDown(KeyCode.R))
+        if(isPlayerNearTree == true)
         {
             //Check if player is near the tree
-            if (isPlayerInsideArea == true) 
+            if (Input.GetMouseButtonDown(0)) 
             {
-        
-            tree.Translate(0, -10, 0);
-            isTreeMoved = true;
+                //add 1 to hitcount value
+                addHitCount();
 
-            //Start coroutine and call time delay
-            StartCoroutine(TimeDelay());
-            TimeDelay();
-            isTreeMoved = false;
+                //Check if enough hits have been done to cut the tree
+                if(treeHitCount == 3)
+                {
+                //Start coroutine and call delay
+                StartCoroutine(TimeBeforeTreeMoved());
+                TimeBeforeTreeMoved();
 
-            //Get a random value between 1 and 3    
-            int numberOfLogs = Random.Range(1,4);
+                //Start coroutine and call delay
+                StartCoroutine(TreeRespawnDelay());
+                TreeRespawnDelay();
+                isTreeMoved = false;
 
-            //Spawn logs based on the random value
-            if (numberOfLogs == 1)
-            {
-                Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
-            }
-
-            if (numberOfLogs == 2)
-            {
-                Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
-                Instantiate(TestLog, Log2SpawnPoint.position, Log2SpawnPoint.rotation);
-            }
-
-            if (numberOfLogs == 3)
-            {
-                Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
-                Instantiate(TestLog, Log2SpawnPoint.position, Log2SpawnPoint.rotation);
-                Instantiate(TestLog, Log3SpawnPoint.position, Log3SpawnPoint.rotation);
-            } 
-
-            isTreeHit = false;
+                treeHitCount = 0;
+                }
             }
         }
     }
 
-    //Turn "isPlayerInsideArea" to true when player enters the tree´s vicinity
+    //Turn "isPlayerNearTree" to true when player enters the tree´s vicinity
     private void OnTriggerEnter(Collider other) 
     {
         if (other.tag == "Player") 
         {
-            isPlayerInsideArea = true;
+            isPlayerNearTree = true;
         }
     }
 
-    //Turn "isPlayerInsideArea" to false when player exits the tree´s vicinity
+    //Turn "isPlayerNearTree" to false when player exits the tree´s vicinity
     private void OnTriggerExit(Collider other)
     {
       if (other.tag == "Player")
         {
-            isPlayerInsideArea = false;
+            isPlayerNearTree = false;
         }
     }
 
     // Function for tree respawn delay
-    IEnumerator TimeDelay()
+    IEnumerator TreeRespawnDelay()
     {
-        //Adding the timer and after the timer tree will be moved back to its original position
-        yield return new WaitForSeconds(5);
+        //Get a random value between 5 an 10
+        int RespawnWaitTime = Random.Range(5,10);
+
+        //Wait before moving the tree back
+        yield return new WaitForSeconds(RespawnWaitTime);
         tree.Translate(0, 10, 0);
+    }
+
+    IEnumerator TimeBeforeTreeMoved()
+    {
+        //Setting a 0.4 second wait time before tree is moved to match with the hit animation
+        yield return new WaitForSeconds(0.4F);
+        tree.Translate(0, -10, 0);
+        isTreeMoved = true;
+
+        //Get a random value between 1 and 3    
+        int numberOfLogs = Random.Range(1,4);
+
+        //Spawn 1 log if random value is 1
+        if (numberOfLogs == 1)
+        {
+             Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
+        }
+
+        //Spawn 2 logs if random value is 2
+        if (numberOfLogs == 2)
+        {
+            Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
+            Instantiate(TestLog, Log2SpawnPoint.position, Log2SpawnPoint.rotation);
+        }
+
+        //Spawn 3 logs if random value is 3
+        if (numberOfLogs == 3)
+        {
+            Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
+            Instantiate(TestLog, Log2SpawnPoint.position, Log2SpawnPoint.rotation);
+            Instantiate(TestLog, Log3SpawnPoint.position, Log3SpawnPoint.rotation);
+        }
+
+        isTreeHit = false;
+    }
+
+    public void addHitCount()
+    {
+        treeHitCount++;
     }
 }
