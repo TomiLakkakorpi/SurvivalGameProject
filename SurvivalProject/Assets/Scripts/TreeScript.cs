@@ -5,18 +5,10 @@ using UnityEngine;
 public class TreeScript : MonoBehaviour
 {
     public Transform tree;
-
-    public bool isTreeMoved = false;
-    public bool isTreeHit = false;
-    public bool isPlayerNearTree = false;
-
-    public bool isTreeHitOnce = false;
-    public bool isTreeHitTwice = false;
-    public bool isTreeHitThrice = false;
-
-    public int treeHitCount = 0;
-
     public GameObject TestLog;
+    public bool isTreeMoved = false;
+    public bool isPlayerNearTree = false;
+    public int treeHitCount = 0;
 
     [SerializeField] private Transform Log1SpawnPoint;
     [SerializeField] private Transform Log2SpawnPoint;
@@ -24,18 +16,20 @@ public class TreeScript : MonoBehaviour
 
     void Update()
     {
-        //Check if button has been pressed
-        if(isPlayerNearTree == true)
+        //Check if player is near the tree
+        if(isPlayerNearTree == true && PlayerInventory.Instance.axeInHand)
         {
-            //Check if player is near the tree
+            //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
             {
-                //add 1 to hitcount value
+                //Start hitcount coroutine
+                StartCoroutine(addHitCount());
                 addHitCount();
 
                 //Check if enough hits have been done to cut the tree
-                if(treeHitCount == 3)
+                if(treeHitCount == 2)
                 {
+
                 //Start coroutine and call delay
                 StartCoroutine(TimeBeforeTreeMoved());
                 TimeBeforeTreeMoved();
@@ -45,7 +39,9 @@ public class TreeScript : MonoBehaviour
                 TreeRespawnDelay();
                 isTreeMoved = false;
 
+                //Reset tree hit count back to 0
                 treeHitCount = 0;
+
                 }
             }
         }
@@ -69,11 +65,11 @@ public class TreeScript : MonoBehaviour
         }
     }
 
-    // Function for tree respawn delay
+    //Function for tree respawn delay
     IEnumerator TreeRespawnDelay()
     {
-        //Get a random value between 5 an 10
-        int RespawnWaitTime = Random.Range(5,10);
+        //Get a random value between 4 minutes and 5 minutes
+        int RespawnWaitTime = Random.Range(240,300);
 
         //Wait before moving the tree back
         yield return new WaitForSeconds(RespawnWaitTime);
@@ -110,12 +106,12 @@ public class TreeScript : MonoBehaviour
             Instantiate(TestLog, Log2SpawnPoint.position, Log2SpawnPoint.rotation);
             Instantiate(TestLog, Log3SpawnPoint.position, Log3SpawnPoint.rotation);
         }
-
-        isTreeHit = false;
     }
 
-    public void addHitCount()
+    // 0.8 second delay before 1 is added to hitcount
+    IEnumerator addHitCount()
     {
+        yield return new WaitForSeconds(0.8F);
         treeHitCount++;
     }
 }

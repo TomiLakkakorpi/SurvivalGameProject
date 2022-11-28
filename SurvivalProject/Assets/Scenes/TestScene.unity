@@ -446,7 +446,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117791976}
-  m_LocalRotation: {x: 0.053877868, y: 0.5126851, z: -0.032258693, w: 0.8562772}
+  m_LocalRotation: {x: 0.05387786, y: 0.5126851, z: -0.03225869, w: 0.8562772}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -963,11 +963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 0}
   isTreeMoved: 0
-  isTreeHit: 0
   isPlayerNearTree: 0
-  isTreeHitOnce: 0
-  isTreeHitTwice: 0
-  isTreeHitThrice: 0
   treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 0}
@@ -1410,6 +1406,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Palm_Tree
       objectReference: {fileID: 0}
+    - target: {fileID: 188006, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 481554, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1480,11 +1480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 456708878}
   isTreeMoved: 0
-  isTreeHit: 0
   isPlayerNearTree: 0
-  isTreeHitOnce: 0
-  isTreeHitTwice: 0
-  isTreeHitThrice: 0
   treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
@@ -2501,11 +2497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 100960141}
   isTreeMoved: 0
-  isTreeHit: 0
   isPlayerNearTree: 0
-  isTreeHitOnce: 0
-  isTreeHitTwice: 0
-  isTreeHitThrice: 0
   treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
@@ -2674,6 +2666,39 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d28a5d39d87b52c49824501fac8b689c, type: 3}
+--- !u!114 &933584499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933584493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 052b42211c125d04e875bc12013c87f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tree: {fileID: 659187602}
+  isTreeMoved: 0
+  isPlayerNearTree: 0
+  treeHitCount: 0
+  TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
+  Log1SpawnPoint: {fileID: 1621338784}
+  Log2SpawnPoint: {fileID: 946384311}
+  Log3SpawnPoint: {fileID: 1400299070}
+--- !u!135 &933584500
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933584493}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0.033952475, y: 1.3387955, z: -0.002206713}
 --- !u!1 &946384310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,7 +2723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946384310}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 3, y: 4325592, z: -2495021}
+  m_LocalPosition: {x: 3, y: 4325592, z: -4670099}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3556,6 +3581,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fir_Tree
       objectReference: {fileID: 0}
+    - target: {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 471828, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3626,11 +3659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 1293326507}
   isTreeMoved: 0
-  isTreeHit: 0
   isPlayerNearTree: 0
-  isTreeHitOnce: 0
-  isTreeHitTwice: 0
-  isTreeHitThrice: 0
   treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
@@ -3649,6 +3678,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.5
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!64 &1293326512
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293326506}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: d7ad634caa1c049d49b730cc6d29c683, type: 3}
 --- !u!4 &1302036863 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d4d6eed92fb93e948b95c2fc4d1f6f8d, type: 3}
@@ -4104,11 +4147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 1332225531}
   isTreeMoved: 0
-  isTreeHit: 0
   isPlayerNearTree: 0
-  isTreeHitOnce: 0
-  isTreeHitTwice: 0
-  isTreeHitThrice: 0
   treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
@@ -4508,7 +4547,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1400299069}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 4, y: 4325591, z: -2859268}
+  m_LocalPosition: {x: 4, y: 4325591, z: -5034346}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4791,6 +4830,7 @@ MonoBehaviour:
   Head: {fileID: 1911167202}
   inventory: {fileID: 1962535189}
   Hud: {fileID: 626056579}
+  axeInHand: 0
 --- !u!114 &1546009474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5146,7 +5186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4252784401376168, guid: 22a3fd8d3e59a1149bdcd775c0e87241, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.70381
+      value: 22.43
       objectReference: {fileID: 0}
     - target: {fileID: 4252784401376168, guid: 22a3fd8d3e59a1149bdcd775c0e87241, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5206,30 +5246,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 1596970061}
   isTreeMoved: 0
-  isTreeHit: 0
   isPlayerNearTree: 0
-  isTreeHitOnce: 0
-  isTreeHitTwice: 0
-  isTreeHitThrice: 0
   treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
   Log2SpawnPoint: {fileID: 946384311}
   Log3SpawnPoint: {fileID: 1400299070}
---- !u!64 &1596970066
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1596970062}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 58c79ebc04f48c74fa4869c3f7d941fd, type: 3}
 --- !u!64 &1596970067
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5351,7 +5373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621338783}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 4, y: 4325592, z: -2130012}
+  m_LocalPosition: {x: 4, y: 4325592, z: -4305090}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6472,7 +6494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d28a5d39d87b52c49824501fac8b689c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d28a5d39d87b52c49824501fac8b689c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6739,11 +6761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 2038649677}
   isTreeMoved: 0
-  isTreeHit: 0
   isPlayerNearTree: 0
-  isTreeHitOnce: 0
-  isTreeHitTwice: 0
-  isTreeHitThrice: 0
   treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
@@ -6948,11 +6966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 2049192503}
   isTreeMoved: 0
-  isTreeHit: 0
   isPlayerNearTree: 0
-  isTreeHitOnce: 0
-  isTreeHitTwice: 0
-  isTreeHitThrice: 0
   treeHitCount: 0
   TestLog: {fileID: 8483293420133056193, guid: 60db19e69de7baf4da3ae8d596bb0bef, type: 3}
   Log1SpawnPoint: {fileID: 1621338784}
@@ -6971,6 +6985,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.5
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!64 &2049192508
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049192502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 7dca68918011bd644a4dc268eea79b44, type: 3}
 --- !u!1001 &2102356476
 PrefabInstance:
   m_ObjectHideFlags: 0
