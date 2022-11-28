@@ -22,7 +22,7 @@ public class PlayerStatus : MonoBehaviour
     public Image HpBarImage;
     private float HealthMax = 100;
     [SerializeField] private float HealthCurrent;
-    
+
     [Header("Player Hunger")]
     public Image HungerBarImage;
     private float HungerMax = 100;
@@ -39,7 +39,7 @@ public class PlayerStatus : MonoBehaviour
     {
         Instance = this;
     }
-   
+
     void Start()
     {
         mAnimator = GetComponentInChildren<Animator>();
@@ -49,17 +49,18 @@ public class PlayerStatus : MonoBehaviour
         ThirstyCurrent = ThirstyMax;
         ThirstyBarImage.fillAmount = ThirstyCurrent;
 
+
         InvokeRepeating("IncreaseHunger", 0, HungerRate);
         InvokeRepeating("IncreaseThirst", 0, ThirstRate);
     }
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         GetCurrentFill();
 
         // DEBUGGING METHOD DELETE AFTER
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             TakeDamage(20);
         }
@@ -76,12 +77,12 @@ public class PlayerStatus : MonoBehaviour
         HealthCurrent += value;
     }
 
-     public void IncreaseFood(int value)
+    public void IncreaseFood(int value)
     {
         HungerCurrent += value;
     }
 
-     public void IncreaseDrink(int value)
+    public void IncreaseDrink(int value)
     {
         ThirstyCurrent += value;
     }
@@ -92,17 +93,29 @@ public class PlayerStatus : MonoBehaviour
         HealthFill = HealthCurrent / HealthMax;
         HpBarImage.fillAmount = HealthFill;
 
-        if(HealthFill <= 0)
+        if (HealthFill <= 0)
         {
+            //Death animation's function
+            Death();
+
+            //Disables player movement
+            GetComponent<PlayerMovement>().enabled = false;
+
+            //Freezes 3rdpersoncam under Camera
+            GameObject.Find("Camera").GetComponent<ThirdPersonCam>().enabled = false;
+
+            //Freezes 3rdpersoncam
+            GameObject.Find("ThirdPersonCam").SetActive(false);
+
             OnPlayerDeath?.Invoke();
             //This stops whole script
             enabled = false;
         }
 
-        if (HungerCurrent == 0) 
+        if (HungerCurrent == 0)
             HealthCurrent -= HealthMultiplier;
 
-        if (ThirstyCurrent == 0) 
+        if (ThirstyCurrent == 0)
             HealthCurrent -= HealthMultiplier;
     }
 
@@ -126,4 +139,8 @@ public class PlayerStatus : MonoBehaviour
         ThirstyBarImage.fillAmount = ThirstyFill;
     }
 
+    private void Death()
+    {
+        mAnimator.SetTrigger("Death");
+    }
 }

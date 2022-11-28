@@ -17,6 +17,8 @@ public class PlayerInventory : MonoBehaviour
     private bool isInventoryOpen = false;
     private Animator mAnimator;
 
+    public bool axeInHand = false; 
+
     private void Awake()
     {
         Instance = this;
@@ -105,6 +107,11 @@ public class PlayerInventory : MonoBehaviour
                 SetItemToHand(item, true);
                 mCurrentItem = e.Item;
                 mAnimator.SetBool("Armed", true);
+                axeInHand = false;
+                if (e.Item.Name == "Axe")
+                {
+                    axeInHand = true;
+                }
             }
             if (e.Item.ItemType == EItemType.Helmet)
             {
