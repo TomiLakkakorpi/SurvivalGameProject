@@ -8,6 +8,10 @@ public class Minotaur : MonoBehaviour
     private Animator animCon;
     public static Minotaur Instance;    
 
+    public bool isPlayerNearEnemy = false;
+    private float nextPunchAttack;
+    private float punchAttackCooldown = 0.8f;
+
     private float health;
     private float maxHealth = 100f;
 
@@ -17,7 +21,7 @@ public class Minotaur : MonoBehaviour
     void Start()
     {
         healthBarUI.SetActive(false);
-        health = 50f;
+        health = 100f;
         slider.value = CalculateHealth();
         animCon = GetComponent<Animator>();
     }
@@ -29,6 +33,17 @@ public class Minotaur : MonoBehaviour
 
     void Update()
     {
+        //Enemy can take damage
+        if(isPlayerNearEnemy == true)
+        {
+            if(Input.GetMouseButtonDown(0) && Time.time > nextPunchAttack)
+            {
+                nextPunchAttack = Time.time + punchAttackCooldown;
+                //Value of item damagestat here
+                TakeDamage(10);
+            }
+        }
+
         //Health
         slider.value = CalculateHealth();
 
@@ -50,6 +65,8 @@ public class Minotaur : MonoBehaviour
         //Animations
         if (EnemyAI.Instance.patrolling == true)
         {
+            health = 100f;
+            healthBarUI.SetActive(false);
             Walk();
         }
         if (EnemyAI.Instance.chasing == true)
@@ -60,10 +77,7 @@ public class Minotaur : MonoBehaviour
         {
             Walk();
         }
-        if (EnemyAI.Instance.attacking == true && EnemyAI.Instance.chasing == false)
-        {
-            CombatIdle();
-        }
+
     }
 
     private void Idle()
@@ -81,26 +95,37 @@ public class Minotaur : MonoBehaviour
         animCon.SetFloat("Speed", 1, 0.15f, Time.deltaTime);
     }
 
-    private void CombatIdle()
-    {
-        animCon.SetTrigger("CombatIdle");
-    }
-
-    public void Attack()
-    {
-        //Animation without this delay is not in sync
-        StartCoroutine(WaitBeforeDamage());
-    }
-
-    IEnumerator WaitBeforeDamage()
-    {
-        animCon.SetTrigger("Attack_01");
-        yield return new WaitForSeconds(0.95f);
-        PlayerStatus.Instance.TakeDamage(15);
-    }
-
      float CalculateHealth()
     {
         return health / maxHealth;
+    }
+
+    private void OnTriggerEnter(Collider other){
+        if (other.tag == "Player") 
+        {
+            isPlayerNearEnemy = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other){
+        if (other.tag == "Player") 
+        {
+            isPlayerNearEnemy = false;
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            DestroyEnemy();
+        }
+    }
+
+    //Delete enemy function
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
 }

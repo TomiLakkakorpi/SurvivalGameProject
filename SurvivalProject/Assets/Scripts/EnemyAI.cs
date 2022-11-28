@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
     //Gameobject for recognizing enemies tag
     public GameObject enemy;
+
+    private Animator animCon;
 
     public NavMeshAgent agent;
 
@@ -25,7 +29,6 @@ public class EnemyAI : MonoBehaviour
     bool walkPointSet;
     public float walkPointRange;
     
-
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -34,11 +37,10 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
-    
 
     private void Start()
     {
-        
+        animCon = GetComponent<Animator>();
     }
 
     private void Awake()
@@ -51,10 +53,6 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("AlreadyAttacked: " + alreadyAttacked);
-        //Debug.Log("Patrolling: " + patrolling);
-        Debug.Log("Chasing: " + chasing);
-        Debug.Log("Attacking: " + attacking);
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -112,26 +110,9 @@ public class EnemyAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             //Attack code here
-            //Make enemy swing at you based on enemy tag
-            if(enemy.tag == "Centaur"){
-                Centaur.Instance.Attack();
-            }
-            if(enemy.tag == "Cyclops"){
-                Cyclops.Instance.Attack();
-            }
-            if(enemy.tag == "HalfSpider"){
-                HalfSpider.Instance.Attack();
-            }
-            if(enemy.tag == "Gorgon"){
-                Gorgon.Instance.Attack();
-            }
-            if(enemy.tag == "Minotaur"){
-                Minotaur.Instance.Attack();
-            }
+            animCon.SetTrigger("CombatIdle");
+            StartCoroutine(WaitBeforeDamage());
             
-
-            
-
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
             
@@ -148,18 +129,10 @@ public class EnemyAI : MonoBehaviour
         //damage function for enemy
     }
 
-    //Delete enemy function
-    private void DestroyEnemy()
+    IEnumerator WaitBeforeDamage()
     {
-        Destroy(gameObject);
-    }
-
-    //Function for visualizing attack and sight range
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
+        animCon.SetTrigger("Attack_01");
+        yield return new WaitForSeconds(0.95f);
+        PlayerStatus.Instance.TakeDamage(15);
     }
 }
