@@ -7,6 +7,7 @@ public class Cyclops : MonoBehaviour
 {
     private Animator animCon;
     public static Cyclops Instance;    
+    public bool isPlayerNearEnemy;
 
     private float health;
     private float maxHealth = 100f;
@@ -17,7 +18,7 @@ public class Cyclops : MonoBehaviour
     void Start()
     {
         healthBarUI.SetActive(false);
-        health = 50f;
+        health = 100f;
         slider.value = CalculateHealth();
         animCon = GetComponent<Animator>();
     }
@@ -46,6 +47,7 @@ public class Cyclops : MonoBehaviour
         {
             health = maxHealth;
         }
+
         //Animations
         if (EnemyAI.Instance.patrolling == true)
         {
@@ -59,10 +61,19 @@ public class Cyclops : MonoBehaviour
         {
             Walk();
         }
-        if (EnemyAI.Instance.attacking == true && EnemyAI.Instance.chasing == false)
+
+        //Enemy can take damage
+        if(isPlayerNearEnemy == true)
         {
-            CombatIdle();
+            if(Input.GetMouseButtonDown(0))
+            {
+                //Value of item damagestat
+                TakeDamage(10);
+
+
+            }
         }
+       
     }
 
     private void Idle()
@@ -80,27 +91,33 @@ public class Cyclops : MonoBehaviour
         animCon.SetFloat("Speed", 1, 0.15f, Time.deltaTime);
     }
 
-    private void CombatIdle()
-    {
-        animCon.SetTrigger("CombatIdle");
-    }
-
-    public void Attack()
-    {
-        //Animation without this delay is not in sync
-        StartCoroutine(WaitBeforeDamage());
-    }
-
-    IEnumerator WaitBeforeDamage()
-    {
-        animCon.SetTrigger("Attack_01");
-        yield return new WaitForSeconds(0.8f);
-        PlayerStatus.Instance.TakeDamage(15);
-    }
 
     float CalculateHealth()
     {
         return health / maxHealth;
+    }
+
+    private void OnTriggerEnter(Collider other){
+        isPlayerNearEnemy = true;
+    }
+
+    private void OnTriggerExit(Collider other){
+        isPlayerNearEnemy = false;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            DestroyEnemy();
+        }
+    }
+
+    //Delete enemy function
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
 
 }

@@ -17,7 +17,7 @@ public class HalfSpider : MonoBehaviour
     void Start()
     {
         healthBarUI.SetActive(false);
-        health = 50f;
+        health = 100f;
         slider.value = CalculateHealth();
         animCon = GetComponent<Animator>();
     }
@@ -60,10 +60,7 @@ public class HalfSpider : MonoBehaviour
         {
             Walk();
         }
-        if (EnemyAI.Instance.attacking == true && EnemyAI.Instance.chasing == false)
-        {
-            CombatIdle();
-        }
+
     }
 
     private void Idle()
@@ -81,25 +78,6 @@ public class HalfSpider : MonoBehaviour
         animCon.SetFloat("Speed", 1, 0.15f, Time.deltaTime);
     }
 
-    private void CombatIdle()
-    {
-        animCon.SetTrigger("CombatIdle");
-    }
-
-    public void Attack()
-    {
-        //Animation without this delay is not in sync
-        StartCoroutine(WaitBeforeDamage());
-    }
-
-    IEnumerator WaitBeforeDamage()
-    {
-        animCon.SetTrigger("Attack_01");
-        yield return new WaitForSeconds(0.8f);
-        PlayerStatus.Instance.TakeDamage(15);
-    }
-
-    
     float CalculateHealth()
     {
         return health / maxHealth;
