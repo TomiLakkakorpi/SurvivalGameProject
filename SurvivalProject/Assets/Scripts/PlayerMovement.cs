@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() 
     {
+        if(mAnimator.GetCurrentAnimatorStateInfo(0).IsName("SwordSlash"))
+            return;
         Move();
     }
 
