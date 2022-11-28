@@ -13,11 +13,13 @@ public class MiningScript : MonoBehaviour
     [SerializeField] private Transform Rock1SpawnPoint;
     [SerializeField] private Transform Rock2SpawnPoint;
     [SerializeField] private Transform Rock3SpawnPoint;
+    [SerializeField] private Transform Rock4SpawnPoint;
+    [SerializeField] private Transform Rock5SpawnPoint;
     
     void Update()
     {
         //Check if player is near the rock
-        if(isPlayerNearRock == true)
+        if(isPlayerNearRock == true && PlayerInventory.Instance.pickaxeInHand)
         {
             //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
@@ -98,19 +100,19 @@ public class MiningScript : MonoBehaviour
         if (numberOfRocks == 4)
         {
             Instantiate(rock4, Rock1SpawnPoint.position, Rock1SpawnPoint.rotation);
-            Instantiate(rock4, Rock1SpawnPoint.position, Rock1SpawnPoint.rotation);
             Instantiate(rock4, Rock2SpawnPoint.position, Rock2SpawnPoint.rotation);
             Instantiate(rock4, Rock3SpawnPoint.position, Rock3SpawnPoint.rotation);
+            Instantiate(rock4, Rock4SpawnPoint.position, Rock4SpawnPoint.rotation);
         }
 
         //Spawn 5 rocks if random value is 5
         if (numberOfRocks == 5)
         {
             Instantiate(rock4, Rock1SpawnPoint.position, Rock1SpawnPoint.rotation);
-            Instantiate(rock4, Rock1SpawnPoint.position, Rock1SpawnPoint.rotation);
-            Instantiate(rock4, Rock2SpawnPoint.position, Rock2SpawnPoint.rotation);
             Instantiate(rock4, Rock2SpawnPoint.position, Rock2SpawnPoint.rotation);
             Instantiate(rock4, Rock3SpawnPoint.position, Rock3SpawnPoint.rotation);
+            Instantiate(rock4, Rock4SpawnPoint.position, Rock4SpawnPoint.rotation);
+            Instantiate(rock4, Rock5SpawnPoint.position, Rock5SpawnPoint.rotation);
         }
     }
 
