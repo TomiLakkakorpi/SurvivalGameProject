@@ -15,6 +15,7 @@ public class PlayerInventory : MonoBehaviour
     private bool isInventoryOpen = false;
 
     public bool axeInHand = false; 
+    public bool pickaxeInHand = false;
 
     private void Awake()
     {
@@ -117,6 +118,12 @@ public class PlayerInventory : MonoBehaviour
                 if (e.Item.Name == "Axe")
                 {
                     axeInHand = true;
+                }
+
+                pickaxeInHand = false;
+                if (e.Item.name == "PickAxe")
+                {
+                    pickaxeInHand = true;
                 }
             }
             if (e.Item.ItemType == EItemType.Helmet)
