@@ -14,6 +14,8 @@ public class PlayerInventory : MonoBehaviour
     public HUD Hud;
     private bool isInventoryOpen = false;
 
+    public bool axeInHand = false; 
+
     private void Awake()
     {
         Instance = this;
@@ -111,6 +113,11 @@ public class PlayerInventory : MonoBehaviour
                 // Use item (put it to hand of the player)
                 SetItemToHand(item, true);
                 mCurrentItem = e.Item;
+                axeInHand = false;
+                if (e.Item.Name == "Axe")
+                {
+                    axeInHand = true;
+                }
             }
             if (e.Item.ItemType == EItemType.Helmet)
             {
