@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class Cyclops : MonoBehaviour
 {
     private Animator animCon;
-    public static Cyclops Instance;    
-    public bool isPlayerNearEnemy;
+    public static Cyclops Instance;
+
+    public bool isPlayerNearEnemy = false;
+    private float nextPunchAttack;
+    private float punchAttackCooldown = 0.8f;
 
     private float health;
     private float maxHealth = 100f;
@@ -30,6 +33,17 @@ public class Cyclops : MonoBehaviour
 
     void Update()
     {
+        //Enemy can take damage
+        if(isPlayerNearEnemy == true)
+        {
+            if(Input.GetMouseButtonDown(0) && Time.time > nextPunchAttack)
+            {
+                nextPunchAttack = Time.time + punchAttackCooldown;
+                //Value of item damagestat here
+                TakeDamage(10);
+            }
+        }
+
         //Health
         slider.value = CalculateHealth();
 
@@ -51,6 +65,8 @@ public class Cyclops : MonoBehaviour
         //Animations
         if (EnemyAI.Instance.patrolling == true)
         {
+            health = 100f;
+            healthBarUI.SetActive(false);
             Walk();
         }
         if (EnemyAI.Instance.chasing == true)
@@ -62,17 +78,6 @@ public class Cyclops : MonoBehaviour
             Walk();
         }
 
-        //Enemy can take damage
-        if(isPlayerNearEnemy == true)
-        {
-            if(Input.GetMouseButtonDown(0))
-            {
-                //Value of item damagestat
-                TakeDamage(10);
-
-
-            }
-        }
        
     }
 
@@ -98,11 +103,17 @@ public class Cyclops : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other){
-        isPlayerNearEnemy = true;
+        if (other.tag == "Player") 
+        {
+            isPlayerNearEnemy = true;
+        }
     }
 
     private void OnTriggerExit(Collider other){
-        isPlayerNearEnemy = false;
+        if (other.tag == "Player") 
+        {
+            isPlayerNearEnemy = false;
+        }
     }
 
     public void TakeDamage(float damage)
