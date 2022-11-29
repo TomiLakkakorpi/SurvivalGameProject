@@ -67,7 +67,7 @@ public class Spline : MonoBehaviour
 
         for (int i = 1; i < splineCount; i++)
         {
-            float sqrDistance = (splinePoint[i - 1] - pos).sqrMagnitude;
+            float sqrDistance = (splinePoint[i] - pos).sqrMagnitude;
             if (shortestDistance == 0.0f || sqrDistance < shortestDistance)
             {
                 shortestDistance = sqrDistance;
@@ -80,7 +80,7 @@ public class Spline : MonoBehaviour
     public Vector3 splineSegment(Vector3 v1, Vector3 v2, Vector3 pos)
     {
         Vector3 v1ToPos = pos - v1;
-        Vector3 seqDirection = -(v2 - v1).normalized;
+        Vector3 seqDirection = (v2 - v1).normalized;
 
         float distanceFromV1 = Vector3.Dot(seqDirection, v1ToPos);
 
