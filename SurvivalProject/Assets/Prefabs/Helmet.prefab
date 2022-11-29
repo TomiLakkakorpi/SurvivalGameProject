@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1502458655249619610
+--- !u!1 &6831055281744568402
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1708662816026537028}
-  - component: {fileID: -5754084199372789682}
-  - component: {fileID: -7511558181221131132}
-  - component: {fileID: 1559892924766691930}
-  - component: {fileID: 2987699696011108222}
+  - component: {fileID: 6747348262472357516}
+  - component: {fileID: 8804647574559511174}
+  - component: {fileID: 6761190671946557004}
+  - component: {fileID: 6895253885794949266}
+  - component: {fileID: 7161699441301611958}
   m_Layer: 0
   m_Name: Helmet
   m_TagString: Untagged
@@ -20,36 +20,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1708662816026537028
+--- !u!4 &6747348262472357516
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1502458655249619610}
-  m_LocalRotation: {x: 0.000000081460335, y: -0.0000000017275075, z: -0.0000000021960211, w: 1}
-  m_LocalPosition: {x: -0.00000003784895, y: 4.81401e-16, z: -0.000000032708048}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_GameObject: {fileID: 6831055281744568402}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 50.000015, y: 50, z: 50.000015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &-5754084199372789682
+--- !u!33 &8804647574559511174
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1502458655249619610}
-  m_Mesh: {fileID: 6164007273895261051, guid: ad753bfd2a5312d4ab3c4ab22795b1bc, type: 3}
---- !u!23 &-7511558181221131132
+  m_GameObject: {fileID: 6831055281744568402}
+  m_Mesh: {fileID: 6164007273895261051, guid: 6917e5f78a8d1b84a9ecf7e164003031, type: 3}
+--- !u!23 &6761190671946557004
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1502458655249619610}
+  m_GameObject: {fileID: 6831055281744568402}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -85,31 +85,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1559892924766691930
+--- !u!114 &6895253885794949266
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1502458655249619610}
+  m_GameObject: {fileID: 6831055281744568402}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adda6366b375ed54989fd4c2ae594fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemType: 0
-  Name: 
-  Image: {fileID: 0}
-  PickPosition: {x: 0, y: 0, z: 0}
-  PickRotation: {x: 0, y: 0, z: 0}
+  ItemType: 4
+  Name: Iron Helmet
+  Image: {fileID: 21300000, guid: cdd282d0182b2e44ea72d9eed0067414, type: 3}
+  PickPosition: {x: 0.009, y: -3.904, z: -0.03}
+  PickRotation: {x: 0, y: -3.013, z: 0}
   DropRotation: {x: 0, y: 0, z: 0}
---- !u!64 &2987699696011108222
+  dropHeight: {x: 0, y: -1, z: 0}
+--- !u!64 &7161699441301611958
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1502458655249619610}
+  m_GameObject: {fileID: 6831055281744568402}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
