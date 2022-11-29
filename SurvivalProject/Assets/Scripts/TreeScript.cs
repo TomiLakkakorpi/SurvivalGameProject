@@ -27,21 +27,19 @@ public class TreeScript : MonoBehaviour
                 addHitCount();
 
                 //Check if enough hits have been done to cut the tree
-                if(treeHitCount == 2)
+                if(treeHitCount >= 2)
                 {
+                    //Start coroutine and call delay
+                    StartCoroutine(TimeBeforeTreeMoved());
+                    TimeBeforeTreeMoved();
 
-                //Start coroutine and call delay
-                StartCoroutine(TimeBeforeTreeMoved());
-                TimeBeforeTreeMoved();
+                    //Start coroutine and call delay
+                    StartCoroutine(TreeRespawnDelay());
+                    TreeRespawnDelay();
+                    isTreeMoved = false;
 
-                //Start coroutine and call delay
-                StartCoroutine(TreeRespawnDelay());
-                TreeRespawnDelay();
-                isTreeMoved = false;
-
-                //Reset tree hit count back to 0
-                treeHitCount = 0;
-
+                    //Reset tree hit count back to 0
+                    treeHitCount = 0;
                 }
             }
         }
@@ -89,7 +87,7 @@ public class TreeScript : MonoBehaviour
         //Spawn 1 log if random value is 1
         if (numberOfLogs == 1)
         {
-             Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
+            Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
         }
 
         //Spawn 2 logs if random value is 2
