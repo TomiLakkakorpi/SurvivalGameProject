@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Cyclops : MonoBehaviour
 {
     private Animator animCon;
-    public static Cyclops Instance;
+    public AudioSource source;
+    public AudioClip attackSound;
+    public AudioClip getHitSound;
 
     public bool isPlayerNearEnemy = false;
     private float nextPunchAttack;
@@ -26,13 +28,11 @@ public class Cyclops : MonoBehaviour
         animCon = GetComponent<Animator>();
     }
 
-      private void Awake()
-    {
-        Instance = this;   
-    }
+    
 
     void Update()
     {
+        Debug.Log("isPlayerNearEnemy: " + isPlayerNearEnemy);
         //Enemy can take damage
         if(isPlayerNearEnemy == true)
         {
@@ -118,6 +118,7 @@ public class Cyclops : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        GetHitSound();
         health -= damage;
         if (health <= 0)
         {
@@ -129,6 +130,18 @@ public class Cyclops : MonoBehaviour
     private void DestroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    void AttackSound() 
+    {
+        source.clip = attackSound;
+        source.Play();
+    }
+
+    void GetHitSound() 
+    {
+        source.clip = getHitSound;
+        source.Play();
     }
 
 }

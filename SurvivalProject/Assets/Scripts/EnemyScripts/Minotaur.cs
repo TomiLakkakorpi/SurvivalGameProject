@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class Minotaur : MonoBehaviour
 {
-    private Animator animCon;
-    public static Minotaur Instance;    
+    private Animator animCon;    
+    public AudioSource source;
+    public AudioClip attackSound;
+    public AudioClip getHitSound;
 
     public bool isPlayerNearEnemy = false;
     private float nextPunchAttack;
@@ -24,11 +26,6 @@ public class Minotaur : MonoBehaviour
         health = 100f;
         slider.value = CalculateHealth();
         animCon = GetComponent<Animator>();
-    }
-
-      private void Awake()
-    {
-        Instance = this;   
     }
 
     void Update()
@@ -50,11 +47,6 @@ public class Minotaur : MonoBehaviour
         if(health < maxHealth)
         {
             healthBarUI.SetActive(true);
-        }
-
-        if(health <= 0)
-        {
-            Destroy(gameObject);
         }
 
         if(health > maxHealth)
@@ -116,6 +108,7 @@ public class Minotaur : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        GetHitSound();
         health -= damage;
         if (health <= 0)
         {
@@ -128,4 +121,17 @@ public class Minotaur : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    void AttackSound() 
+    {
+        source.clip = attackSound;
+        source.Play();
+    }
+
+    void GetHitSound() 
+    {
+        source.clip = getHitSound;
+        source.Play();
+    }
+
 }
