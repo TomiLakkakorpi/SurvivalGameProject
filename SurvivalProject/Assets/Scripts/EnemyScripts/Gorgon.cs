@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Gorgon : MonoBehaviour
 {
     private Animator animCon;
-    public static Gorgon Instance; 
+    public AudioSource source;
+    public AudioClip attackSound;
+    public AudioClip getHitSound;
 
     public bool isPlayerNearEnemy = false;
     private float nextPunchAttack;
@@ -26,13 +28,10 @@ public class Gorgon : MonoBehaviour
         animCon = GetComponent<Animator>();
     }
 
-      private void Awake()
-    {
-        Instance = this;   
-    }
 
     void Update()
     {
+        Debug.Log("isPlayerNearEnemy: " + isPlayerNearEnemy);
         //Enemy can take damage
         if(isPlayerNearEnemy == true)
         {
@@ -50,11 +49,6 @@ public class Gorgon : MonoBehaviour
         if(health < maxHealth)
         {
             healthBarUI.SetActive(true);
-        }
-
-        if(health <= 0)
-        {
-            Destroy(gameObject);
         }
 
         if(health > maxHealth)
@@ -116,6 +110,7 @@ public class Gorgon : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        GetHitSound();
         health -= damage;
         if (health <= 0)
         {
@@ -127,5 +122,17 @@ public class Gorgon : MonoBehaviour
     private void DestroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    void AttackSound() 
+    {
+        source.clip = attackSound;
+        source.Play();
+    }
+
+    void GetHitSound() 
+    {
+        source.clip = getHitSound;
+        source.Play();
     }
 }
