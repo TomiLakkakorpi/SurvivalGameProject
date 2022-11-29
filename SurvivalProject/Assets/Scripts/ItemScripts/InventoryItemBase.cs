@@ -36,15 +36,18 @@ public class InventoryItemBase : MonoBehaviour
         if(Physics.Raycast(ray, out Hit, 1000))
         {
             gameObject.SetActive(true);
-            gameObject.transform.position = Hit.point;
+            gameObject.transform.position = Hit.point + dropHeight;
             gameObject.transform.eulerAngles = DropRotation;
+
+            gameObject.AddComponent<Rigidbody>();
         }
     }
 
     public virtual void OnPickup()
     {
-        //If item has rigidbody component, destroy it
+        //If item has rigidbody or animator component, destroy it
         Destroy(gameObject.GetComponent<Rigidbody>());
+        Destroy(gameObject.GetComponent<Animation>());
         gameObject.SetActive(false);
     }
 
@@ -57,4 +60,5 @@ public class InventoryItemBase : MonoBehaviour
     public Vector3 PickPosition;
     public Vector3 PickRotation;
     public Vector3 DropRotation;
+    public Vector3 dropHeight;
 }
