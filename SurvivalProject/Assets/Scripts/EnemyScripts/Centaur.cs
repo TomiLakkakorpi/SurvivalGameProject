@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Centaur : MonoBehaviour
 {
     private Animator animCon;
-    public static Centaur Instance; 
+    public AudioSource source;
+    public AudioClip attackSound;
+    public AudioClip getHitSound;
 
     public bool isPlayerNearEnemy = false;
     private float nextPunchAttack;
@@ -26,13 +28,9 @@ public class Centaur : MonoBehaviour
         animCon = GetComponent<Animator>();
     }
 
-      private void Awake()
-    {
-        Instance = this;   
-    }
-
     void Update()
     {
+        Debug.Log("isPlayerNearEnemy: " + isPlayerNearEnemy);
         //Enemy can take damage
         if(isPlayerNearEnemy == true)
         {
@@ -50,11 +48,6 @@ public class Centaur : MonoBehaviour
         if(health < maxHealth)
         {
             healthBarUI.SetActive(true);
-        }
-
-        if(health <= 0)
-        {
-            Destroy(gameObject);
         }
 
         if(health > maxHealth)
@@ -116,6 +109,7 @@ public class Centaur : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        GetHitSound();
         health -= damage;
         if (health <= 0)
         {
@@ -127,5 +121,17 @@ public class Centaur : MonoBehaviour
     private void DestroyEnemy()
     {
         Destroy(gameObject);
+    }
+
+    void AttackSound() 
+    {
+        source.clip = attackSound;
+        source.Play();
+    }
+
+    void GetHitSound() 
+    {
+        source.clip = getHitSound;
+        source.Play();
     }
 }

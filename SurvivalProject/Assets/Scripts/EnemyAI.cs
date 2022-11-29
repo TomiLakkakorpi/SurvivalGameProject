@@ -124,10 +124,6 @@ public class EnemyAI : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
-    {
-        //damage function for enemy
-    }
 
     IEnumerator WaitBeforeDamage()
     {
