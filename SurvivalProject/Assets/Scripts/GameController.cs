@@ -23,14 +23,14 @@ public class GameController : MonoBehaviour
     private void OnEnable()
     {
         PlayerStatus.OnPlayerDeath += EnableGameOVerMenu;
-        Debug.Log("OnEnable");
+       
         // Cursor.lockState = CursorLockMode.None;
     }
 
     private void OnDisable()
     {
         PlayerStatus.OnPlayerDeath -= EnableGameOVerMenu;
-        Debug.Log("OnDisable");
+        
     }
 
     public void EnableGameOVerMenu()

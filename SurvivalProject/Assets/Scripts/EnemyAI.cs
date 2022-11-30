@@ -5,9 +5,6 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
-    //Gameobject for recognizing enemies tag
-    public GameObject enemy;
-
     private Animator animCon;
 
     public NavMeshAgent agent;
@@ -99,6 +96,7 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackPlayer()
     {
+        patrolling = false;
         chasing = false;
         attacking = true;
         //Make sure enemy doesn't move when reaching attack distance
