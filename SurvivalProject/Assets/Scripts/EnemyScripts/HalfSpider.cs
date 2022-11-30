@@ -15,7 +15,7 @@ public class HalfSpider : MonoBehaviour
     private float punchAttackCooldown = 0.8f;
 
     private float health;
-    private float maxHealth = 100f;
+    private float maxHealth = 120f;
 
     public GameObject healthBarUI;
     public Slider slider;
@@ -23,7 +23,7 @@ public class HalfSpider : MonoBehaviour
     void Start()
     {
         healthBarUI.SetActive(false);
-        health = 100f;
+        health = 120f;
         slider.value = CalculateHealth();
         animCon = GetComponent<Animator>();
     }
@@ -31,25 +31,26 @@ public class HalfSpider : MonoBehaviour
      
     void Update()
     {
-        Debug.Log("isPlayerNearEnemy: " + isPlayerNearEnemy);
         //Enemy can take damage
         if(isPlayerNearEnemy == true)
         {
             if(Input.GetMouseButtonDown(0) && Time.time > nextPunchAttack)
             {
-                nextPunchAttack = Time.time + punchAttackCooldown;
-                //Value of item damagestat here
-                TakeDamage(10);
+                if(PlayerInventory.Instance.swordInHand == false){
+                    nextPunchAttack = Time.time + punchAttackCooldown;
+                    //Value of item damagestat here (This is punch)
+                    TakeDamage(10);
+                }
+                if(PlayerInventory.Instance.swordInHand == true){
+                    nextPunchAttack = Time.time + punchAttackCooldown;
+                    //Value of item damagestat here (This is sword)
+                    TakeDamage(50);
+                }      
             }
         }
 
         //Health
         slider.value = CalculateHealth();
-
-        if(health < maxHealth)
-        {
-            healthBarUI.SetActive(true);
-        }
 
         if(health > maxHealth)
         {
@@ -57,10 +58,8 @@ public class HalfSpider : MonoBehaviour
         }
 
         //Animations
-        if (EnemyAI.Instance.patrolling == true)
+        if (EnemyAI.Instance.patrolling == true && EnemyAI.Instance.chasing == false)
         {
-            health = 100f;
-            healthBarUI.SetActive(false);
             Walk();
         }
         if (EnemyAI.Instance.chasing == true)
@@ -97,6 +96,7 @@ public class HalfSpider : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if (other.tag == "Player") 
         {
+            healthBarUI.SetActive(true);
             isPlayerNearEnemy = true;
         }
     }
@@ -104,6 +104,7 @@ public class HalfSpider : MonoBehaviour
     private void OnTriggerExit(Collider other){
         if (other.tag == "Player") 
         {
+            healthBarUI.SetActive(false);
             isPlayerNearEnemy = false;
         }
     }

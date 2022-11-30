@@ -17,6 +17,7 @@ public class PlayerInventory : MonoBehaviour
     private bool isInventoryOpen = false;
     private Animator mAnimator;
 
+    public bool swordInHand = false;
     public bool axeInHand = false; 
     public bool pickaxeInHand = false;
 
@@ -76,6 +77,7 @@ public class PlayerInventory : MonoBehaviour
 
         mCurrentItem = null;
         mAnimator.SetBool("Armed", false);
+        swordInHand = false;
     }
 
     private void SetItemToHand(InventoryItemBase item, bool active)
@@ -119,6 +121,12 @@ public class PlayerInventory : MonoBehaviour
                 {
                     pickaxeInHand = true;
                 }
+
+                swordInHand = false;
+                if (e.Item.name == "Sword")
+                {
+                    swordInHand = true;
+                }
             }
             if (e.Item.ItemType == EItemType.Helmet)
             {
@@ -150,6 +158,7 @@ public class PlayerInventory : MonoBehaviour
         {
             mCurrentItem = null;
             mAnimator.SetBool("Armed", false);
+            swordInHand = false;
         }
 
         Collider collider = goItem.GetComponentInChildren<Collider>();
