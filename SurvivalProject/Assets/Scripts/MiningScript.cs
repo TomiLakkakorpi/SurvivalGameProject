@@ -48,7 +48,7 @@ public class MiningScript : MonoBehaviour
                 addRockHitCount();
 
                 //Check if enough hits have been done to mine the rock
-                if(rockHitCount == 5)
+                if(rockHitCount >= 5)
                 {
 
                 //Start coroutine and call delay
