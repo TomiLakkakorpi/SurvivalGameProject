@@ -5,6 +5,8 @@ using UnityEngine;
 public class Splinemover : MonoBehaviour
 {
     public Spline spline;
+
+
     public Transform followObj;
 
     private Transform thisTransform;
