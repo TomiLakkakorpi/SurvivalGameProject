@@ -6,8 +6,13 @@ public class TreeScript : MonoBehaviour
 {
     public Transform tree;
     public GameObject TestLog;
+    public AudioSource source;
+    public AudioClip treeSound;
+
     public bool isTreeMoved = false;
     public bool isPlayerNearTree = false;
+    public bool soundPlaying = false;
+
     public int treeHitCount = 0;
 
     [SerializeField] private Transform Log1SpawnPoint;
@@ -22,12 +27,20 @@ public class TreeScript : MonoBehaviour
             //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
             {
+                //Check if sound is already playing
+                if (soundPlaying == false) 
+                {
+                    //Start sound coroutine and call sound function
+                    StartCoroutine(callSound());
+                    callSound();
+                }
+
                 //Start hitcount coroutine
                 StartCoroutine(addHitCount());
                 addHitCount();
 
                 //Check if enough hits have been done to cut the tree
-                if(treeHitCount >= 2)
+                if(treeHitCount >= 3)
                 {
                     //Start coroutine and call delay
                     StartCoroutine(TimeBeforeTreeMoved());
@@ -111,5 +124,19 @@ public class TreeScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8F);
         treeHitCount++;
+    }
+
+    //Sound function
+    IEnumerator callSound()
+    {
+        //Turn soundPlaying = true so another sound cant start until this one is finished
+        soundPlaying = true;
+
+        source.clip = treeSound;
+        source.PlayOneShot(treeSound);
+        yield return new WaitForSeconds(0.8F);
+
+        //Turn soundPlaying back to false so another sound can be played again
+        soundPlaying = false;
     }
 }
