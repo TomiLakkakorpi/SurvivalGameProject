@@ -10,20 +10,31 @@ public class MiningScript : MonoBehaviour
     public bool isPlayerNearRock = false;
     public int rockHitCount = 0;
 
+    public AudioSource source;
+    public AudioClip stoneSound;
+
     [SerializeField] private Transform Rock1SpawnPoint;
     [SerializeField] private Transform Rock2SpawnPoint;
     [SerializeField] private Transform Rock3SpawnPoint;
     [SerializeField] private Transform Rock4SpawnPoint;
     [SerializeField] private Transform Rock5SpawnPoint;
+
+    public void PlayStoneminingSound()
+    {
+        source.clip = stoneSound;
+        source.PlayOneShot(stoneSound);
+    }
     
     void Update()
     {
         //Check if player is near the rock
-        if(isPlayerNearRock == true && PlayerInventory.Instance.pickaxeInHand)
+        if(isPlayerNearRock == true)
         {
             //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
             {
+                PlayStoneminingSound();
+
                 //Start hitcount coroutine
                 StartCoroutine(addRockHitCount());
                 addRockHitCount();
@@ -119,6 +130,8 @@ public class MiningScript : MonoBehaviour
     // 0.8 second delay before 1 is added to hitcount
     IEnumerator addRockHitCount()
     {
+        //Play sound here?
+        
         yield return new WaitForSeconds(0.8F);
         rockHitCount++;
     }

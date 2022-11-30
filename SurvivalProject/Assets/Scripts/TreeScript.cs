@@ -10,9 +10,18 @@ public class TreeScript : MonoBehaviour
     public bool isPlayerNearTree = false;
     public int treeHitCount = 0;
 
+    public AudioSource source;
+    public AudioClip treeSound;
+
     [SerializeField] private Transform Log1SpawnPoint;
     [SerializeField] private Transform Log2SpawnPoint;
     [SerializeField] private Transform Log3SpawnPoint;
+
+    public void PlayWoodcuttingSound()
+    {
+        source.clip = treeSound;
+        source.PlayOneShot(treeSound);
+    }
 
     void Update()
     {
@@ -22,9 +31,12 @@ public class TreeScript : MonoBehaviour
             //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
             {
+                PlayWoodcuttingSound();
                 //Start hitcount coroutine
                 StartCoroutine(addHitCount());
                 addHitCount();
+
+                //WoodcuttingSound.PlayWoodcuttingSound();
 
                 //Check if enough hits have been done to cut the tree
                 if(treeHitCount >= 2)
