@@ -17,6 +17,7 @@ public class TreeScript : MonoBehaviour
     [SerializeField] private Transform Log2SpawnPoint;
     [SerializeField] private Transform Log3SpawnPoint;
 
+    //Function for woodcutting sound
     public void PlayWoodcuttingSound()
     {
         source.clip = treeSound;
@@ -31,12 +32,12 @@ public class TreeScript : MonoBehaviour
             //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
             {
+                //Call sound function
                 PlayWoodcuttingSound();
+
                 //Start hitcount coroutine
                 StartCoroutine(addHitCount());
                 addHitCount();
-
-                //WoodcuttingSound.PlayWoodcuttingSound();
 
                 //Check if enough hits have been done to cut the tree
                 if(treeHitCount >= 2)
