@@ -31,7 +31,7 @@ public class MiningScript : MonoBehaviour
     void Update()
     {
         //Check if player is near the rock (And if the player is holding a pickaxe (Not working))
-        if(isPlayerNearRock == true  /* && PlayerInventory.Instance.pickaxeInHand */)
+        if(isPlayerNearRock == true && PlayerInventory.Instance.pickaxeInHand )
         {
             //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
