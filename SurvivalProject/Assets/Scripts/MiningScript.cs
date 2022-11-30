@@ -12,6 +12,7 @@ public class MiningScript : MonoBehaviour
 
     public AudioSource source;
     public AudioClip stoneSound;
+    public bool soundPlaying = false;
 
     [SerializeField] private Transform Rock1SpawnPoint;
     [SerializeField] private Transform Rock2SpawnPoint;
@@ -34,8 +35,12 @@ public class MiningScript : MonoBehaviour
             //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
             {
-                //Call sound function
-                PlayStoneminingSound();
+                //Check if sound is already playing
+                if (soundPlaying == false)
+                {
+                    StartCoroutine(callSound());
+                    callSound();
+                }
 
                 //Start hitcount coroutine
                 StartCoroutine(addRockHitCount());
@@ -134,5 +139,19 @@ public class MiningScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8F);
         rockHitCount++;
+    }
+
+    //Sound function
+    IEnumerator callSound()
+    {
+        //Turn soundPlaying = true so another sound cant start until this one is finished
+        soundPlaying = true;
+
+        source.clip = stoneSound;
+        source.PlayOneShot(stoneSound);
+        yield return new WaitForSeconds(0.8F);
+
+        //Turn soundPlaying back to false so another sound can be played again
+        soundPlaying = false;
     }
 }
