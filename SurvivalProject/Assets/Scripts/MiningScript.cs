@@ -6,8 +6,13 @@ public class MiningScript : MonoBehaviour
 {
     public Transform rock;
     public GameObject rock4;
+    public AudioSource source;
+    public AudioClip stoneSound;
+
     public bool isRockMoved = false;
     public bool isPlayerNearRock = false;
+    public bool soundPlaying = false;
+
     public int rockHitCount = 0;
 
     [SerializeField] private Transform Rock1SpawnPoint;
@@ -15,21 +20,35 @@ public class MiningScript : MonoBehaviour
     [SerializeField] private Transform Rock3SpawnPoint;
     [SerializeField] private Transform Rock4SpawnPoint;
     [SerializeField] private Transform Rock5SpawnPoint;
+
+    //Function for mining sound
+    public void PlayStoneminingSound()
+    {
+        source.clip = stoneSound;
+        source.PlayOneShot(stoneSound);
+    }
     
     void Update()
     {
-        //Check if player is near the rock
-        if(isPlayerNearRock == true && PlayerInventory.Instance.pickaxeInHand)
+        //Check if player is near the rock (And if the player is holding a pickaxe (Not working))
+        if(isPlayerNearRock == true && PlayerInventory.Instance.pickaxeInHand )
         {
             //Check if mouse button has been pressed
             if (Input.GetMouseButtonDown(0)) 
             {
+                //Check if sound is already playing
+                if (soundPlaying == false)
+                {
+                    StartCoroutine(callSound());
+                    callSound();
+                }
+
                 //Start hitcount coroutine
                 StartCoroutine(addRockHitCount());
                 addRockHitCount();
 
                 //Check if enough hits have been done to mine the rock
-                if(rockHitCount == 5)
+                if(rockHitCount >= 5)
                 {
 
                 //Start coroutine and call delay
@@ -121,5 +140,19 @@ public class MiningScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8F);
         rockHitCount++;
+    }
+
+    //Sound function
+    IEnumerator callSound()
+    {
+        //Turn soundPlaying = true so another sound cant start until this one is finished
+        soundPlaying = true;
+
+        source.clip = stoneSound;
+        source.PlayOneShot(stoneSound);
+        yield return new WaitForSeconds(0.8F);
+
+        //Turn soundPlaying back to false so another sound can be played again
+        soundPlaying = false;
     }
 }
