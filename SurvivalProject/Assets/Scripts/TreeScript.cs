@@ -6,13 +6,14 @@ public class TreeScript : MonoBehaviour
 {
     public Transform tree;
     public GameObject TestLog;
-    public bool isTreeMoved = false;
-    public bool isPlayerNearTree = false;
-    public int treeHitCount = 0;
-
     public AudioSource source;
     public AudioClip treeSound;
+
+    public bool isTreeMoved = false;
+    public bool isPlayerNearTree = false;
     public bool soundPlaying = false;
+
+    public int treeHitCount = 0;
 
     [SerializeField] private Transform Log1SpawnPoint;
     [SerializeField] private Transform Log2SpawnPoint;
@@ -39,7 +40,7 @@ public class TreeScript : MonoBehaviour
                 addHitCount();
 
                 //Check if enough hits have been done to cut the tree
-                if(treeHitCount >= 2)
+                if(treeHitCount >= 3)
                 {
                     //Start coroutine and call delay
                     StartCoroutine(TimeBeforeTreeMoved());

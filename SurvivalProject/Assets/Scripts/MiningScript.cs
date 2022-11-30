@@ -6,13 +6,14 @@ public class MiningScript : MonoBehaviour
 {
     public Transform rock;
     public GameObject rock4;
-    public bool isRockMoved = false;
-    public bool isPlayerNearRock = false;
-    public int rockHitCount = 0;
-
     public AudioSource source;
     public AudioClip stoneSound;
+
+    public bool isRockMoved = false;
+    public bool isPlayerNearRock = false;
     public bool soundPlaying = false;
+
+    public int rockHitCount = 0;
 
     [SerializeField] private Transform Rock1SpawnPoint;
     [SerializeField] private Transform Rock2SpawnPoint;
