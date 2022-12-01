@@ -79,12 +79,14 @@ public class PlayerStatus : MonoBehaviour
 
     public void IncreaseHealth(int value)
     {
-        HealthCurrent += value;
+        //HealthCurrent += value;
+        HealthCurrent = Math.Min(100, HealthCurrent + value);
     }
 
     public void IncreaseFood(int value)
     {
-        HungerCurrent += value;
+        // HungerCurrent += value;
+        HungerCurrent = Math.Min(100, HungerCurrent + value);
     }
 
     public void IncreaseDrink(int value)

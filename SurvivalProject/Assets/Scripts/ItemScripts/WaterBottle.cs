@@ -6,12 +6,9 @@ public class WaterBottle : InventoryItemBase
 {
     public int DrinkPoints = 20;
 
-    public int WaterAmount;
+    public int WaterAmount = 100;
 
-    void Start()
-    {
-        WaterAmount = 100;
-    }
+
     public override void OnUse()
     {
         // Add x amount of health to player
