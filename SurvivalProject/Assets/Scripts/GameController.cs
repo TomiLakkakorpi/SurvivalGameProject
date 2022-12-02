@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
         waterSound.SetActive(true);
         birdsSound.SetActive(true);
         riverSound.SetActive(true);
+
     }
 
     public void Pause()
@@ -57,7 +58,12 @@ public class GameController : MonoBehaviour
         birdsSound.SetActive(false);
         riverSound.SetActive(false);
 
+    }
 
+    public void GoMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
     }
 
 
