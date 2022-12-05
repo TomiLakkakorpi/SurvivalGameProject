@@ -64,11 +64,6 @@ public class PlayerStatus : MonoBehaviour
         {
             TakeDamage(20);
         }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            IncreaseDrink(20);
-        }
     }
 
     public void TakeDamage(float damage)
