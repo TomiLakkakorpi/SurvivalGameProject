@@ -11,6 +11,7 @@ TagManager:
   - Gorgon
   - Minotaur
   - Harpy
+  - TreeOrRock
   layers:
   - Default
   - TransparentFX
