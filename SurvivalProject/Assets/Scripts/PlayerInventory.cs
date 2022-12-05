@@ -18,8 +18,10 @@ public class PlayerInventory : MonoBehaviour
     private Animator mAnimator;
 
     public bool swordInHand = false;
-    public bool axeInHand = false; 
+    public bool axeInHand = false;
     public bool pickaxeInHand = false;
+    public bool armorEquipped = false;
+    public bool helmetEquipped = false;
 
     private void Awake()
     {
@@ -77,7 +79,6 @@ public class PlayerInventory : MonoBehaviour
 
         mCurrentItem = null;
         mAnimator.SetBool("Armed", false);
-        swordInHand = false;
     }
 
     private void SetItemToHand(InventoryItemBase item, bool active)
@@ -110,30 +111,34 @@ public class PlayerInventory : MonoBehaviour
                 SetItemToHand(item, true);
                 mCurrentItem = e.Item;
                 mAnimator.SetBool("Armed", true);
+
                 axeInHand = false;
-                if (e.Item.Name == "Axe")
-                {
-                    axeInHand = true;
-                }
-
                 pickaxeInHand = false;
-                if (e.Item.name == "PickAxe")
-                {
-                    pickaxeInHand = true;
-                }
-
                 swordInHand = false;
-                if (e.Item.name == "Sword")
+
+                switch (item.Name)
                 {
-                    swordInHand = true;
+                    case "Sword":
+                        swordInHand = true;
+                        break;
+                    case "Axe":
+                        axeInHand = true;
+                        break;
+                    case "PickAxe":
+                        pickaxeInHand = true;
+                        break;
+                    default:
+                        break;
                 }
             }
+
             if (e.Item.ItemType == EItemType.Helmet)
             {
                 InventoryItemBase item = e.Item;
                 GameObject currentItem = (item as MonoBehaviour).gameObject;
                 currentItem.SetActive(true);
                 currentItem.transform.parent = Head.transform;
+                helmetEquipped = true;
             }
             if (e.Item.ItemType == EItemType.Breastplate)
             {
@@ -141,6 +146,7 @@ public class PlayerInventory : MonoBehaviour
                 GameObject currentItem = (item as MonoBehaviour).gameObject;
                 currentItem.SetActive(true);
                 currentItem.transform.parent = Body.transform;
+                armorEquipped = true;
             }
         }
         
@@ -158,7 +164,27 @@ public class PlayerInventory : MonoBehaviour
         {
             mCurrentItem = null;
             mAnimator.SetBool("Armed", false);
-            swordInHand = false;
+        }
+
+        switch (item.Name)
+        {
+            case "Sword":
+                swordInHand = false;
+                break;
+            case "Axe":
+                axeInHand = false;
+                break;
+            case "PickAxe":
+                pickaxeInHand = false;
+                break;
+            case "IronArmor":
+                armorEquipped = false;
+                break;
+            case "IronHelmet":
+                helmetEquipped = false;
+                break;
+            default:
+                break;
         }
 
         Collider collider = goItem.GetComponentInChildren<Collider>();

@@ -68,6 +68,11 @@ public class PlayerStatus : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        // If player has armor, reduce damage
+        if(PlayerInventory.Instance.armorEquipped)
+            damage -= 5f;
+        if(PlayerInventory.Instance.helmetEquipped)
+            damage -= 2f;
         HealthCurrent -= damage;
         mAnimator.SetTrigger("GetHit");
     }
