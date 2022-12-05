@@ -101,8 +101,6 @@ public class MiningScript : MonoBehaviour
     {
         //Setting a 0.4 second wait time before rock is moved to match with the hit animation
         yield return new WaitForSeconds(0.4F);
-        rock.Translate(0, -10, 0);
-        isRockMoved = true;
 
         //Get a random value between 1 and 3    
         int numberOfRocks = Random.Range(3,6);
@@ -113,6 +111,9 @@ public class MiningScript : MonoBehaviour
             Instantiate(rock4, Rock1SpawnPoint.position, Rock1SpawnPoint.rotation);
             Instantiate(rock4, Rock2SpawnPoint.position, Rock2SpawnPoint.rotation);
             Instantiate(rock4, Rock3SpawnPoint.position, Rock3SpawnPoint.rotation);
+
+            rock.Translate(0, -10, 0);
+            isRockMoved = true;
         }
 
         //Spawn 4 rocks if random value is 4
@@ -122,6 +123,9 @@ public class MiningScript : MonoBehaviour
             Instantiate(rock4, Rock2SpawnPoint.position, Rock2SpawnPoint.rotation);
             Instantiate(rock4, Rock3SpawnPoint.position, Rock3SpawnPoint.rotation);
             Instantiate(rock4, Rock4SpawnPoint.position, Rock4SpawnPoint.rotation);
+
+            rock.Translate(0, -10, 0);
+            isRockMoved = true;
         }
 
         //Spawn 5 rocks if random value is 5
@@ -132,6 +136,9 @@ public class MiningScript : MonoBehaviour
             Instantiate(rock4, Rock3SpawnPoint.position, Rock3SpawnPoint.rotation);
             Instantiate(rock4, Rock4SpawnPoint.position, Rock4SpawnPoint.rotation);
             Instantiate(rock4, Rock5SpawnPoint.position, Rock5SpawnPoint.rotation);
+
+            rock.Translate(0, -10, 0);
+            isRockMoved = true;
         }
     }
 

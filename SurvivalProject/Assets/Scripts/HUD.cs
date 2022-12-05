@@ -97,11 +97,15 @@ public class HUD : MonoBehaviour
 
     public void OpenMessagePanel(string text) 
     {
+        Text messagePanelText = MessagePanel.GetComponentInChildren<Text>();
+        messagePanelText.text = text;
         MessagePanel.SetActive(true);
     }
 
     public void CloseMessagePanel() 
     {
+        Text messagePanelText = MessagePanel.GetComponentInChildren<Text>();
+        messagePanelText.text = "";
         MessagePanel.SetActive(false);
     }
 }

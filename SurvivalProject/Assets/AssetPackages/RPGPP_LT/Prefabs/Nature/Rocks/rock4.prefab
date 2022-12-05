@@ -130,7 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemType: 0
   Name: Rock
-  Image: {fileID: 0}
+  Image: {fileID: 21300000, guid: b5f175f5e7b3196499e88ddeb6940979, type: 3}
   PickPosition: {x: 0, y: 0, z: 0}
   PickRotation: {x: 0, y: 0, z: 0}
   DropRotation: {x: 0, y: 0, z: 0}
+  dropHeight: {x: 0, y: 0.2, z: 0}
