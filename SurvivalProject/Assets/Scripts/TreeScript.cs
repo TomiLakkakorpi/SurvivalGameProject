@@ -84,15 +84,13 @@ public class TreeScript : MonoBehaviour
 
         //Wait before moving the tree back
         yield return new WaitForSeconds(RespawnWaitTime);
-        tree.Translate(0, 10, 0);
+        tree.Translate(0, 20, 0);
     }
 
     IEnumerator TimeBeforeTreeMoved()
     {
         //Setting a 0.4 second wait time before tree is moved to match with the hit animation
         yield return new WaitForSeconds(0.4F);
-        tree.Translate(0, -10, 0);
-        isTreeMoved = true;
 
         //Get a random value between 1 and 3    
         int numberOfLogs = Random.Range(1,4);
@@ -101,6 +99,8 @@ public class TreeScript : MonoBehaviour
         if (numberOfLogs == 1)
         {
             Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
+            tree.Translate(0, -20, 0);
+            isTreeMoved = true;
         }
 
         //Spawn 2 logs if random value is 2
@@ -108,6 +108,8 @@ public class TreeScript : MonoBehaviour
         {
             Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
             Instantiate(TestLog, Log2SpawnPoint.position, Log2SpawnPoint.rotation);
+            tree.Translate(0, -20, 0);
+            isTreeMoved = true;
         }
 
         //Spawn 3 logs if random value is 3
@@ -116,6 +118,8 @@ public class TreeScript : MonoBehaviour
             Instantiate(TestLog, Log1SpawnPoint.position, Log1SpawnPoint.rotation);
             Instantiate(TestLog, Log2SpawnPoint.position, Log2SpawnPoint.rotation);
             Instantiate(TestLog, Log3SpawnPoint.position, Log3SpawnPoint.rotation);
+            tree.Translate(0, -20, 0);
+            isTreeMoved = true;
         }
     }
 
