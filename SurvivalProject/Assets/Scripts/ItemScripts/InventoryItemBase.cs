@@ -23,7 +23,7 @@ public class InventoryItemBase : MonoBehaviour
 
     void Awake() 
     {
-        Cam = GameObject.Find("Player").transform.Find("CameraRoot").GetChild(0).GetComponent<Camera>();
+        Cam = GameObject.Find("Player").transform.Find("CameraRoot").Find("Camera").GetComponent<Camera>();
     }
     public string Name;
     

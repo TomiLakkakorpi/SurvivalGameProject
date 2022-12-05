@@ -174,7 +174,7 @@ public class PlayerInventory : MonoBehaviour
         if(item != null)
         {
             mItemToPickUp = item;
-            Hud.OpenMessagePanel("");
+            Hud.OpenMessagePanel("Press -F- to pickup");
         }
     }
 
