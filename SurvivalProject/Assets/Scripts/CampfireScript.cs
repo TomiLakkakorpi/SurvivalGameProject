@@ -7,13 +7,11 @@ public class CampfireScript : MonoBehaviour
     public Transform rocks;
     public Transform logs;
     public Transform fire;
-    public Transform frame;
 
     public bool isPlayerNearCampfire = false;
 
     public bool areRocksPlaced = false;
     public bool areLogsPlaced = false;
-    public bool isFramePlaced = false;
     public bool isFireActive = false;
 
     void Start()
@@ -21,7 +19,6 @@ public class CampfireScript : MonoBehaviour
         rocks.Translate(0, -10, 0);
         logs.Translate(0, -10, 0);
         fire.Translate(0, -10, 0);
-        frame.Translate(0, -10, 0);
     }
 
     void Update()
@@ -31,17 +28,12 @@ public class CampfireScript : MonoBehaviour
             moveRocks();            
         }
 
-        if(isPlayerNearCampfire == true && Input.GetKeyDown(KeyCode.Y) && areLogsPlaced == false) /* && if player has 3 logs in inventory*/
+        if(isPlayerNearCampfire == true && Input.GetKeyDown(KeyCode.T) && areLogsPlaced == false) /* && if player has 3 logs in inventory*/
         {
             moveLogs();
         }
 
-        if(areLogsPlaced == true && isPlayerNearCampfire == true && Input.GetKeyDown(KeyCode.U) && isFramePlaced == false) /*  && if player has 3 logs in inventory */
-        {
-            moveFrame();
-        }
-
-        if(isPlayerNearCampfire == true && areRocksPlaced == true && areLogsPlaced == true && Input.GetKeyDown(KeyCode.I) && isFireActive == false)
+        if(isPlayerNearCampfire == true && areRocksPlaced == true && areLogsPlaced == true && Input.GetKeyDown(KeyCode.Y) && isFireActive == false)
         {
             StartCoroutine(moveFire());
             moveFire();
@@ -74,12 +66,6 @@ public class CampfireScript : MonoBehaviour
     {
         logs.Translate(0, 10, 0);
         areLogsPlaced = true;
-    }
-
-    void moveFrame()
-    {
-        frame.Translate(0, 10, 0);
-        isFramePlaced = true;
     }
 
     IEnumerator moveFire()
