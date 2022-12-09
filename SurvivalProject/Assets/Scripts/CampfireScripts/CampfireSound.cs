@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class CampfireSound : MonoBehaviour
 {
+    [Header("Audio References")]
     public AudioSource source;
     public AudioClip clip;
+
+    [Header("Boolean Variables")]
     public bool isClipPlaying = false;
     public bool isPlayerInArea = false;
 
+    [Header("Access To Another Script")]
     [SerializeField] CampfireScript access; 
 
     void Update()

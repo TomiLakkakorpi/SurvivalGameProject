@@ -5,21 +5,28 @@ using UnityEngine;
 public class CampfireScript : MonoBehaviour
 {
     //Defining variables etc.
+    [Header("GameObject References")]
     public Transform rocks;
     public Transform logs;
     public Transform fire;
-
     public HUD Hud;
 
+    [Header("Boolean variables")]
     public bool isPlayerNearCampfire = false;
-
     public bool areRocksPlaced = false;
     public bool areLogsPlaced = false;
     public bool isFireActive = false;
 
+    [Header("Click Counters")]
     public int timesClickedRocks;
     public int timesClickedLogs;
     public int timesClickedFire;
+
+    [Header("Healing variables")]
+    public int HealthAmount = 1;
+    public bool isHealingActive = false;
+
+    [SerializeField] CampfireDamage accessPoint;
 
     void Start()
     {
@@ -137,6 +144,22 @@ public class CampfireScript : MonoBehaviour
                 }
             }
         }
+
+        if(isPlayerNearCampfire == true)
+        {
+            if(isFireActive == true)
+            {
+                if(isHealingActive == false)
+                {
+                    if(accessPoint.isPlayerInFire == false)
+                    {
+                        isHealingActive = true;
+                        StartCoroutine(AddHealth());
+                        AddHealth();
+                    }
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -190,5 +213,12 @@ public class CampfireScript : MonoBehaviour
         areLogsPlaced = false;
 
         timesClickedFire = 0;
+    }
+
+    IEnumerator AddHealth()
+    {
+        PlayerStatus.Instance.IncreaseHealth(HealthAmount);
+        yield return new WaitForSeconds(1);
+        isHealingActive = false;
     }
 }
