@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public GameObject PauseMenuUI;
     public GameObject gameOverMenu;
     public GameObject birdsSound;
+    public GameObject SettingsMenu;
 
     public GameObject waterSound;
     public GameObject riverSound;
@@ -37,6 +38,7 @@ public class GameController : MonoBehaviour
     public void Resume()
     {
         PauseMenuUI.SetActive(false);
+        SettingsMenu.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;

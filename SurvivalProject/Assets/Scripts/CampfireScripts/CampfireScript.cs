@@ -88,6 +88,7 @@ public class CampfireScript : MonoBehaviour
                             
                             if(timesClickedFire == 1)
                             {
+                                Hud.CloseMessagePanel();
                                 StartCoroutine(moveFire());
                                 moveFire();
                             }
@@ -119,7 +120,7 @@ public class CampfireScript : MonoBehaviour
             }
         }
 
-        if(isPlayerNearCampfire == true && areRocksPlaced == true && areLogsPlaced == true && isFireActive == false)
+        if(isPlayerNearCampfire)
         {
             if(areRocksPlaced == true)
             {
@@ -129,17 +130,6 @@ public class CampfireScript : MonoBehaviour
                     {
                         Hud.OpenMessagePanel("Press -T- to light the campfire");
                     }
-                }
-            }
-        }
-
-        if(areRocksPlaced == true)
-        {
-            if(areLogsPlaced == true)
-            {
-                if(isFireActive == true)
-                {
-                    Hud.CloseMessagePanel();
                 }
             }
         }
