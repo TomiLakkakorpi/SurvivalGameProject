@@ -37,7 +37,6 @@ public class CampfireScript : MonoBehaviour
 
     void Update()
     {   
-
         if(isPlayerNearCampfire == true)
         {   
             if (areRocksPlaced == false)
@@ -203,7 +202,7 @@ public class CampfireScript : MonoBehaviour
         fire.Translate(0, 10, 0);
         isFireActive = true;
 
-        int respawnTime = Random.Range(10, 20);
+        int respawnTime = Random.Range(60, 240);
         yield return new WaitForSeconds(respawnTime);
 
         fire.Translate(0, -10, 0);
