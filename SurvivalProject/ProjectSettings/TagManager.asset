@@ -12,6 +12,7 @@ TagManager:
   - Minotaur
   - Harpy
   - TreeOrRock
+  - CampFireTrigger
   layers:
   - Default
   - TransparentFX
