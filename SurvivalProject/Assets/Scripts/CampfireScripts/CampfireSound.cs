@@ -13,34 +13,34 @@ public class CampfireSound : MonoBehaviour
     public bool isPlayerInArea = false;
 
     [Header("Access To Another Script")]
-    [SerializeField] CampfireScript access; 
+    [SerializeField] CampfireScript access;
 
     void Update()
     {
-        if(access.isFireActive == true)
+        if (access.isFireActive == true)
         {
-            if(isPlayerInArea == true)
+            // if(isPlayerInArea == true)
+            // {
+            if (isClipPlaying == false)
             {
-                if(isClipPlaying == false)
-                {
-                    playClip();
-                }
+                playClip();
             }
+            //}
         }
 
-        if(access.isFireActive == false)
+        if (access.isFireActive == false)
         {
             stopClip();
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") 
+        if (other.tag == "Player")
         {
             isPlayerInArea = true;
 
-            if(isClipPlaying == false && access.isFireActive == true)
+            if (isClipPlaying == false && access.isFireActive == true)
             {
                 playClip();
             }
@@ -49,7 +49,7 @@ public class CampfireSound : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-      if (other.tag == "Player")
+        if (other.tag == "Player")
         {
             isPlayerInArea = false;
             stopClip();

@@ -13,9 +13,9 @@ public class CampfireDamage : MonoBehaviour
 
     void Update()
     {
-        if(isPlayerInFire == true)
+        if (isPlayerInFire == true)
         {
-            if(isFireDamageActive == false)
+            if (isFireDamageActive == false)
             {
                 StartCoroutine(RemoveHealth());
                 RemoveHealth();
@@ -23,9 +23,9 @@ public class CampfireDamage : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") 
+        if (other.tag == "CampFireTrigger")
         {
             isPlayerInFire = true;
         }
@@ -33,7 +33,7 @@ public class CampfireDamage : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-      if (other.tag == "Player")
+        if (other.tag == "CampFireTrigger")
         {
             isPlayerInFire = false;
         }
